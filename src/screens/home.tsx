@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { backgroundImage } from "../constants";
 import { AddressState, OlaAddressComponent, Restaurant } from "../constants/types";
+import RestaurantCard from "../components/restaurant-card";
 
 const Home = () => {
 
@@ -26,15 +27,15 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        if (address.city) {
-            fetch(`https://food-delivery-server-s65z.onrender.com/restaurant?city=${'sangli'}`)
+        // if (address.city) {
+            fetch(`https://food-delivery-server-s65z.onrender.com/restaurant?city=${'miraj'}`)
                 .then(res => res.json())
                 .then(result => {
                     if (result?.data?.restaurants) {
                         setRestaurants(result.data.restaurants)
                     }
                 })
-        }
+        // }
     }, [address])
 
 
@@ -51,14 +52,9 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            {restaurants.map((item: Restaurant) => {
-                return (
-                    <div>
-                        <img src={item.logo} style={{height: 100, width: 100}} />
-                        {item.name}
-                    </div>
-                );
-            })}
+            <div className="p-5 col-12">
+                {restaurants.map((item: Restaurant) => <RestaurantCard restaurant={item} />)}
+            </div>
         </div>
     );
 }
