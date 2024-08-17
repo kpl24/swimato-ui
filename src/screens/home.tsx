@@ -27,7 +27,7 @@ const Home = () => {
 
     useEffect(() => {
         if (address.city) {
-            fetch(`https://food-delivery-server-s65z.onrender.com/restaurant?city=${address.city.toLowerCase()}`)
+            fetch(`https://food-delivery-server-s65z.onrender.com/restaurant?city=${'sangli'}`)
                 .then(res => res.json())
                 .then(result => {
                     if (result?.data?.restaurants) {
@@ -54,6 +54,7 @@ const Home = () => {
             {restaurants.map((item: Restaurant) => {
                 return (
                     <div>
+                        <img src={item.logo} style={{height: 100, width: 100}} />
                         {item.name}
                     </div>
                 );
