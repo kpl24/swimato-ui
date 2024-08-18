@@ -44,7 +44,7 @@ const Home = () => {
             <img height="500px" width="100%" style={{ objectFit: "cover" }} src={backgroundImage} alt="background" />
             <div style={{ width: "100%", height: "500px", backgroundColor: "rgba(0,0,0,0.6)", color: "white" }} className="position-absolute top-0 start-0 d-flex flex-column justify-content-center align-items-center">
                 <h1 style={{ fontSize: 60 }}><i>swimato</i></h1>
-                <div style={{ fontSize: 40, marginBottom: "20px" }}>{`Discover the best food & drinks in ${address.city}`}</div>
+                <div style={{ fontSize: 35, marginBottom: "20px" }}>{`Discover the best food & drinks in ${address.city}`}</div>
                 <div className="form-control w-50">
                     <div className="row">
                         <div className="col-4 text-truncate my-2">{address.addressLine}</div>
