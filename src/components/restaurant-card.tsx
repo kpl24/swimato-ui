@@ -1,15 +1,38 @@
-import { Restaurant } from "../constants/types";
+import { useState } from "react";
+import { Restaurant, StyleSheet } from "../constants/types";
 
 const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
+
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
-        <div className="d-flex flex-column col-4 p-3">
-            <img src={restaurant.logo} className="w-100 rounded" />
-            <div className="py-2 w-100">
-                <div className="py-1" style={{fontSize: '18px'}}>{restaurant.name}</div>
-                <div style={{fontSize: '12px', color: '#d6d6d6'}} className="text-truncate py-1">{restaurant.tags.map((item) => `${item}, `)}</div>
+        <div className="col my-4 pe-auto">
+            <div onMouseLeave={() => setIsHovered(false)} onMouseEnter={() => setIsHovered(true)} className={`border ${isHovered ? 'border-light-subtle shadow-lg' : 'border-white'} rounded-4 p-3`}>
+                <img src={restaurant.logo} className="w-100 rounded-4 align-self-center" />
+                <div className="py-2 w-100">
+                    <div style={styles.headingContainer}>
+                        <div style={styles.heading}>{restaurant.name}</div>
+                        <div className="rounded px-2" style={styles.rating}>New</div>
+                    </div>
+                    <div style={{ ...styles.headingContainer, ...styles.tagsContainer }}>
+                        <div className="text-truncate py-1 w-50">
+                            {restaurant.tags.map((item, index) => `${item}${index === restaurant.tags.length - 1 ? '.' : ','} `)}
+                        </div>
+                        <div>&#8377;200 for one</div>
+                    </div>
+                    <div style={styles.deliverTime} className="text-end">29 min</div>
+                </div>
             </div>
         </div>
     );
+}
+
+const styles: StyleSheet = {
+    headingContainer: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+    heading: { fontSize: '16px', fontWeight: '500', color: '#1c1c1c' },
+    rating: { fontSize: '13px', backgroundColor: '#ebffef', color: '#3ab757', border: '1px solid #3ab757' },
+    tagsContainer: { fontSize: '14px', color: '#696969' },
+    deliverTime: { fontSize: '14px', color: '#black', fontWeight:"500" },
 }
 
 export default RestaurantCard;

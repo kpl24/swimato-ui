@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { backgroundImage } from "../constants";
-import { AddressState, OlaAddressComponent, Restaurant } from "../constants/types";
+import { methods } from "../constants";
+import { AddressState, OlaAddressComponent, Restaurant, StyleSheet } from "../constants/types";
 import RestaurantCard from "../components/restaurant-card";
+import { api } from "../helpers/axios";
 
 const Home = () => {
 
@@ -27,36 +28,31 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        // if (address.city) {
-            fetch(`https://food-delivery-server-s65z.onrender.com/restaurant?city=${'miraj'}`)
-                .then(res => res.json())
+        if (address.city) {
+            api({ method: methods.GET, url: `/restaurant?city=${'miraj'}` })
                 .then(result => {
+                    console.log(result)
                     if (result?.data?.restaurants) {
                         setRestaurants(result.data.restaurants)
                     }
                 })
-        // }
+                .catch(err => console.log(err))
+        }
     }, [address])
 
 
     return (
-        <div className="position-relative">
-            <img height="500px" width="100%" style={{ objectFit: "cover" }} src={backgroundImage} alt="background" />
-            <div style={{ width: "100%", height: "500px", backgroundColor: "rgba(0,0,0,0.6)", color: "white" }} className="position-absolute top-0 start-0 d-flex flex-column justify-content-center align-items-center">
-                <h1 style={{ fontSize: 60 }}><i>swimato</i></h1>
-                <div style={{ fontSize: 35, marginBottom: "20px" }}>{`Discover the best food & drinks in ${address.city}`}</div>
-                <div className="form-control w-50">
-                    <div className="row">
-                        <div className="col-4 text-truncate my-2">{address.addressLine}</div>
-                        <div className="col-8"><input className="form-control align-self-stretch" placeholder="Search" /></div>
-                    </div>
-                </div>
-            </div>
-            <div className="p-5 col-12">
+        <div className="my-4">
+            <h1 className="px-3" style={styles.heading}>{`Order food online in ${address?.city}`}</h1>
+            <div className="row row-cols-12 row-cols-lg-4">
                 {restaurants.map((item: Restaurant) => <RestaurantCard restaurant={item} />)}
             </div>
         </div>
     );
+}
+
+const styles: StyleSheet = {
+    heading: { fontSize: '22px', fontWeight: '500' },
 }
 
 export default Home;

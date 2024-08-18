@@ -1,1 +1,5 @@
-export const backgroundImage = "https://firebasestorage.googleapis.com/v0/b/swi-mato.appspot.com/o/background.jpg?alt=media&token=d576e6a4-7f17-4682-bd4c-1b638abec74d"
+export const baseUrl = import.meta.env.MODE === "development" ? "http://localhost:8000" : "https://food-delivery-server-s65z.onrender.com";
+export const methods = {
+    GET: "GET",
+    POST: "POST"
+}

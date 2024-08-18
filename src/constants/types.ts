@@ -23,6 +23,10 @@ interface AddressState {
     city: string
 }
 
+interface StyleSheet {
+    [key: string]: React.CSSProperties;
+  }
+
 interface OlaAddressComponent {
     types: [string],
 
@@ -32,4 +36,5 @@ export {
     type AddressState,
     type OlaAddressComponent,
     type Restaurant,
+    type StyleSheet
 }
