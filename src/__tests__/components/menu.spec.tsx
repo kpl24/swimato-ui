@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { Category } from '../../components/menu';
 import { Menu } from '../../constants/types';
 
@@ -23,6 +23,7 @@ describe('Menu', () => {
     }
 
     it('should render the Category component correctly', () => {
-        render(<Category menu={menu} />)
+        const { getByText } = render(<Category menu={menu} />);
+        expect(getByText('SomeCategory (2)')).toBeDefined();
     });
 })

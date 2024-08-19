@@ -1,19 +1,21 @@
-import { render, screen } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import App from '../App';
-import { describe, it, vi } from 'vitest'
+import { describe, expect, it, vi, beforeEach } from 'vitest'
 
-const mockGeolocation = {
-    getCurrentPosition: vi.fn(),
-    watchPosition: vi.fn()
+const mockNavigator = {
+    geolocation: {
+        getCurrentPosition: vi.fn(),
+    }
 };
 
-//@ts-expect-error: not in namespace
-global.navigator.geolocation = mockGeolocation;
+beforeEach(() => {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    (window as any).navigator = mockNavigator;
+});
 
 describe('App', () => {
-    it('renders the App component', () => {
-        render(<App />)
-
-        screen.debug(); // prints out the jsx in the App component unto the command line
+    it('should render the App component', () => {
+        const component = render(<App />)
+        waitFor(() => expect(component).toBeDefined())
     })
 })

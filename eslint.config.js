@@ -20,6 +20,7 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       'no-console': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'off',
       'react-hooks/exhaustive-deps': 'off',
       'react-refresh/only-export-components': [
         'warn',

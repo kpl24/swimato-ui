@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react'
-import { describe, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import RestaurantCard from '../../components/restaurant-card';
 import { Restaurant } from '../../constants/types';
 
 const mockUsedNavigate = vi.fn();
 vi.mock('react-router-dom', () => ({
-   ...vi.importActual('react-router-dom'),
-  useNavigate: () => mockUsedNavigate,
+    ...vi.importActual('react-router-dom'),
+    useNavigate: () => mockUsedNavigate,
 }));
 
 describe('Restaurant Card', () => {
@@ -28,6 +28,7 @@ describe('Restaurant Card', () => {
     };
 
     it('should render the Restaurant component correctly', () => {
-        render(<RestaurantCard restaurant={restaurant} />)
+        const { getByText } = render(<RestaurantCard restaurant={restaurant} />);
+        expect(getByText('Test Restaurant')).toBeDefined();
     });
 })

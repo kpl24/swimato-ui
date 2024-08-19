@@ -1,1 +1,1 @@
-export const getTags = (tags: [string] | undefined) => tags?.map((item, index) => `${item}${index === tags.length - 1 ? '.' : ', '}`);
+export const getTags = (tags: string[] | undefined) => tags?.map((item, index) => `${item}${index === tags.length - 1 ? '.' : ', '}`);
