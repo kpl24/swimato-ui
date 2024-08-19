@@ -14,5 +14,5 @@ export const api = ({ method, url, data, token, onUploadProgress }: { method: st
     };
     return axios(apiConfig)
         .then(res => { return res.data; })
-        .catch((err) => { throw err; });
+        .catch((err) => { throw err?.response?.data?.data?.message || 'Something went wrong' });
 };

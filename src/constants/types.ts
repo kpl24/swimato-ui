@@ -1,4 +1,5 @@
 interface Restaurant {
+    _id: string,
     owner_id: string,
     is_approved: boolean,
     logo: string,
@@ -32,9 +33,29 @@ interface OlaAddressComponent {
 
 }
 
+interface MenuItem {
+    image: string,
+    description: string,
+    is_egg_only: boolean,
+    is_veg: boolean,
+    price: number,
+    title: string,
+}
+
+interface Category {
+    title: string
+}
+
+interface Menu {
+    count: number,
+    items: [MenuItem],
+    category: Category
+}
+
 export {
     type AddressState,
     type OlaAddressComponent,
     type Restaurant,
-    type StyleSheet
+    type StyleSheet,
+    type Menu
 }
