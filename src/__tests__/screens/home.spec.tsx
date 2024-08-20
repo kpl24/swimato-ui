@@ -39,7 +39,7 @@ describe('Home Success', () => {
         const { getByText } = render(<Home />);
         expect(getByText('Locating you')).toBeDefined();
         await waitForElementToBeRemoved(() => getByText('Locating you'));
-        mockedAxios.mockResolvedValue({ data: getCityRestaurantsResponse });
+        await mockedAxios.mockResolvedValue({ data: getCityRestaurantsResponse });
         expect(getByText('Order food online in Miraj')).toBeDefined();
     });
 });

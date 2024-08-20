@@ -1,5 +1,5 @@
 import axios, { AxiosHeaders, AxiosProgressEvent, AxiosRequestConfig } from "axios";
-import { baseUrl } from "../constants";
+import { getBaseUrl } from "../constants";
 
 type onUploadProgress = (arg0: AxiosProgressEvent) => void
 
@@ -7,10 +7,10 @@ export const api = ({ method, url, data, token, onUploadProgress }: { method: st
     const headers = new AxiosHeaders({ "Authorization": `Bearer ${token}` })
     const apiConfig: AxiosRequestConfig = {
         method: method,
-        url: `${baseUrl}${url}`,
+        url: `${getBaseUrl(import.meta.env.MODE)}${url}`,
         data: data,
         headers: headers,
-        onUploadProgress: onUploadProgress ? onUploadProgress : undefined
+        onUploadProgress: onUploadProgress
     };
     return axios(apiConfig)
         .then(res => { return res.data; })

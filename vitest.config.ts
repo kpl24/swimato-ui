@@ -6,13 +6,12 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'istanbul', // or 'v8'
-            // Disabling threshold for now until all files are covered
-            // thresholds: {
-            //     lines: 100,
-            //     functions: 100,
-            //     branches: 100,
-            //     statements: 100
-            // }
+            thresholds: {
+                lines: 80,
+                functions: 80,
+                branches: 80,
+                statements: 80
+            }
         },
         environment: 'jsdom',
         globals: true,

@@ -4,7 +4,7 @@ interface Restaurant {
     is_approved: boolean,
     logo: string,
     name: string,
-    tags: [string],
+    tags: string[],
     country: string,
     state: string,
     city: string,

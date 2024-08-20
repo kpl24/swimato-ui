@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import RestaurantCard from '../../components/restaurant-card';
 import { Restaurant } from '../../constants/types';
@@ -16,7 +16,7 @@ describe('Restaurant Card', () => {
         is_approved: true,
         logo: "",
         name: "Test Restaurant",
-        tags: ["test tag 1"],
+        tags: ["test tag 1", "test tag 2"],
         country: "India",
         state: "MH",
         city: "Miraj",
@@ -30,5 +30,12 @@ describe('Restaurant Card', () => {
     it('should render the Restaurant component correctly', () => {
         const { getByText } = render(<RestaurantCard restaurant={restaurant} />);
         expect(getByText('Test Restaurant')).toBeDefined();
+    });
+    it('should render the Restaurant component and redirect to next screen on click', () => {
+        const { getByTestId } = render(<RestaurantCard restaurant={restaurant} />);
+        const element = getByTestId("show-rest-details");
+        fireEvent.click(element);
+        fireEvent.mouseOver(element);
+        fireEvent.mouseLeave(element);
     });
 })

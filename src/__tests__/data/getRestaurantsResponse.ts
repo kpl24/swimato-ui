@@ -7,7 +7,7 @@ export default {
         "restaurant": {
             "_id": "66b9bb39130d8de1720d5822",
             "is_approved": true,
-            "logo": "https://firebasestorage.googleapis.com/v0/b/swi-mato.appspot.com/o/china-hut.png?alt=media&token=5c685d11-1859-4e9d-af11-cb7bd278907e",
+            "logo": "sdsdsdsdsd",
             "name": "New China Hut",
             "tags": [
                 "Chinese",
@@ -247,7 +247,7 @@ export default {
                         "_id": "66bdeccbc2a21c1d5698b024",
                         "restaurant_id": "66b9bb39130d8de1720d5822",
                         "category_id": "66bdb8127a850af2071cc840",
-                        "image": "https://firebasestorage.googleapis.com/v0/b/swi-mato.appspot.com/o/soup.png?alt=media&token=4633c33c-ac68-45b8-b6ee-9c9cad95579e",
+                        "image": "sdsdsdsdsdsds",
                         "title": "Veg Manchow Soup",
                         "description": "",
                         "price": 65,
@@ -467,7 +467,7 @@ export default {
                         "_id": "66bded91c2a21c1d5698b038",
                         "restaurant_id": "66b9bb39130d8de1720d5822",
                         "category_id": "66bdb8127a850af2071cc840",
-                        "image": "https://firebasestorage.googleapis.com/v0/b/swi-mato.appspot.com/o/chicken-soup.png?alt=media&token=946964ba-ae4c-4cba-a22f-eb71090fbbfd",
+                        "image": "",
                         "title": "Chicken Manchow Soup",
                         "description": "",
                         "price": 75,
