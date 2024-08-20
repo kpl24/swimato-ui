@@ -1,7 +1,9 @@
-import { render, waitFor } from '@testing-library/react'
+import { render, waitForElementToBeRemoved } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import Home from '../../screens/home';
 import olaApiResponse from '../data/olaApiResponse';
+import axios from 'axios';
+import getCityRestaurantsResponse from '../data/getCityRestaurantsResponse';
 
 const locationMockResponse = {
     "timestamp": 1724077722102,
@@ -22,18 +24,22 @@ const mockNavigator = {
     }
 };
 
+vi.mock('axios');
+const mockedAxios = vi.mocked(axios, true);
 
 describe('Home Success', () => {
+
     beforeEach(() => {
         /* eslint-disable @typescript-eslint/no-explicit-any */
         (window as any).navigator = mockNavigator;
-        global.fetch = vi.fn().mockResolvedValueOnce({
-            ok: true,
-            json: async () => new Promise((resolve) => resolve(olaApiResponse)),
-        });
+        global.fetch = vi.fn().mockResolvedValue({ ok: true, json: async () => new Promise((resolve) => resolve(olaApiResponse)) });
     });
-    it('should render the home component correctly', () => {
-        const component = render(<Home />);
-        waitFor(() => expect(component).toBeDefined())
+
+    it('should fetch location and render restaurants correctly', async () => {
+        const { getByText } = render(<Home />);
+        expect(getByText('Locating you')).toBeDefined();
+        await waitForElementToBeRemoved(() => getByText('Locating you'));
+        mockedAxios.mockResolvedValue({ data: getCityRestaurantsResponse });
+        expect(getByText('Order food online in Miraj')).toBeDefined();
     });
 });
