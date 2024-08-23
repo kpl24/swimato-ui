@@ -56,7 +56,6 @@ const Home = () => {
         }
     }, [address])
 
-
     return loadingLocation ?
         <Loader message="Locating you" /> : loadingRestaurants ?
             <Loader message="Finding restaurants!" /> : error ?
