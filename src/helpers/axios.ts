@@ -3,11 +3,11 @@ import { getBaseUrl } from "../constants";
 
 type onUploadProgress = (arg0: AxiosProgressEvent) => void
 
-export const api = ({ method, url, data, token, onUploadProgress }: { method: string, url: string, data?: object | undefined, token?: string, onUploadProgress?: onUploadProgress | undefined }) => {
+export const api = ({ method, url, data, token, onUploadProgress, isExternal }: { method: string, url: string, data?: object | undefined, token?: string, onUploadProgress?: onUploadProgress | undefined, isExternal?: boolean }) => {
     const headers = new AxiosHeaders({ "Authorization": `Bearer ${token}` })
     const apiConfig: AxiosRequestConfig = {
         method: method,
-        url: `${getBaseUrl(import.meta.env.MODE)}${url}`,
+        url: isExternal ? url : `${getBaseUrl(import.meta.env.MODE)}${url}`,
         data: data,
         headers: headers,
         onUploadProgress: onUploadProgress

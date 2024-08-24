@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useEffect, useState } from "react";
 import { methods } from "../constants";
 import { AddressState, OlaAddressComponent, Restaurant, StyleSheet } from "../constants/types";
@@ -19,8 +20,7 @@ const Home = () => {
         navigator.geolocation.getCurrentPosition((pos) => {
             const { latitude, longitude } = pos.coords;
             const url = `https://api.olamaps.io/places/v1/reverse-geocode?latlng=${latitude},${longitude}&api_key=${import.meta.env.VITE_MAP_API_KEY}`
-            fetch(url)
-                .then(res => res.json())
+            api({ method: methods.GET, url, isExternal: true })
                 .then(data => {
                     setLoadingLocation(false);
                     const city = data?.results[0]?.address_components?.filter((item: OlaAddressComponent) => item.types[0] === "administrative_area_level_3" || item.types[0] === "locality");
@@ -56,17 +56,19 @@ const Home = () => {
         }
     }, [address])
 
-    return loadingLocation ?
-        <Loader message="Locating you" /> : loadingRestaurants ?
-            <Loader message="Finding restaurants!" /> : error ?
-                <LoadError error={error} /> : (
-                    <div className="my-4">
-                        <h1 className="px-3" style={styles.heading}>{`Order food online in ${address?.city}`}</h1>
-                        <div className="row row-cols-12 row-cols-lg-4">
-                            {restaurants.map((item: Restaurant) => <RestaurantCard restaurant={item} />)}
-                        </div>
-                    </div>
-                );
+    return (
+        <Fragment>
+            {loadingLocation && <Loader message="Locating you" />}
+            {loadingRestaurants && <Loader message="Finding restaurants!" />}
+            {error && <LoadError error={error} />}
+            {restaurants.length > 0 && <div className="my-4">
+                <h1 className="px-3" style={styles.heading}>{`Order food online in ${address?.city}`}</h1>
+                <div className="row row-cols-12 row-cols-lg-4">
+                    {restaurants.map((item: Restaurant) => <RestaurantCard key={item._id} restaurant={item} />)}
+                </div>
+            </div>}
+        </Fragment>
+    );
 }
 
 const styles: StyleSheet = {

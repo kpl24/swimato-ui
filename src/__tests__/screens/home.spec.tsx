@@ -1,9 +1,10 @@
-import { render, waitForElementToBeRemoved } from '@testing-library/react'
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { cleanup, render, waitForElementToBeRemoved } from '@testing-library/react'
+import { describe, expect, it, vi, beforeEach, Mock, afterEach } from 'vitest'
 import Home from '../../screens/home';
 import olaApiResponse from '../data/olaApiResponse';
-import axios from 'axios';
+import * as APIs from '../../helpers/axios';
 import getCityRestaurantsResponse from '../data/getCityRestaurantsResponse';
+import { BrowserRouter } from 'react-router-dom';
 
 const locationMockResponse = {
     "timestamp": 1724077722102,
@@ -24,22 +25,26 @@ const mockNavigator = {
     }
 };
 
-vi.mock('axios');
-const mockedAxios = vi.mocked(axios, true);
+vi.mock('../../helpers/axios');
 
 describe('Home Success', () => {
 
     beforeEach(() => {
         /* eslint-disable @typescript-eslint/no-explicit-any */
         (window as any).navigator = mockNavigator;
-        global.fetch = vi.fn().mockResolvedValue({ ok: true, json: async () => new Promise((resolve) => resolve(olaApiResponse)) });
     });
 
-    it('should fetch location and render restaurants correctly', async () => {
-        const { getByText } = render(<Home />);
-        expect(getByText('Locating you')).toBeDefined();
+    afterEach(() => {
+        cleanup();
+        vi.clearAllMocks();
+        vi.restoreAllMocks();
+    })
+
+    it('should fetch location and show loader correctly', async () => {
+        (APIs.api as Mock).mockResolvedValueOnce(olaApiResponse).mockResolvedValueOnce(getCityRestaurantsResponse);
+        const { getByText } = render(<BrowserRouter><Home /></BrowserRouter>);
+        expect(getByText('Locating you')).toBeInTheDocument();
         await waitForElementToBeRemoved(() => getByText('Locating you'));
-        await mockedAxios.mockResolvedValue({ data: getCityRestaurantsResponse });
-        expect(getByText('Order food online in Miraj')).toBeDefined();
+        expect(getByText('Order food online in Miraj')).toBeInTheDocument();
     });
 });

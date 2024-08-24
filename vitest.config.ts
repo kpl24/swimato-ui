@@ -14,7 +14,7 @@ export default defineConfig({
             }
         },
         environment: 'jsdom',
-        globals: true,
+        globals: false,
         setupFiles: './src/__tests__/setup.tsx',
     },
 })
