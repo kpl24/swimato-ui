@@ -15,7 +15,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
                 <div className="py-2 w-100">
                     <div style={styles.headingContainer}>
                         <div style={styles.heading}>{restaurant.name}</div>
-                        <RatingTag small />
+                        <RatingTag small rating={restaurant.average_rating} />
                     </div>
                     <div style={{ ...styles.headingContainer, ...styles.tagsContainer }}>
                         <div className="text-truncate py-1 w-50">

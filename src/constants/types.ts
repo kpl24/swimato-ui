@@ -18,22 +18,8 @@ interface Restaurant {
     }
 }
 
-interface AddressState {
-    location: {
-        latitude: string,
-        longitude: string,
-    }
-    addressLine: string,
-    city: string
-}
-
 interface StyleSheet {
     [key: string]: React.CSSProperties;
-  }
-
-interface OlaAddressComponent {
-    types: [string],
-
 }
 
 interface MenuItem {
@@ -52,8 +38,6 @@ interface Menu {
 }
 
 export {
-    type AddressState,
-    type OlaAddressComponent,
     type Restaurant,
     type StyleSheet,
     type Menu
