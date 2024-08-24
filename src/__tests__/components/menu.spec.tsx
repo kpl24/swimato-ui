@@ -1,15 +1,13 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { Category } from '../../components/menu';
+import { MenuItem } from '../../components/menu';
 import { Menu } from '../../constants/types';
 
 describe('Menu', () => {
 
     const menu: Menu = {
         count: 2,
-        category: {
-            title: 'SomeCategory'
-        },
+        title: 'SomeCategory',
         items: [
             {
                 image: "",
@@ -23,7 +21,7 @@ describe('Menu', () => {
     }
 
     it('should render the Category component correctly', () => {
-        const { getByText } = render(<Category menu={menu} />);
+        const { getByText } = render(<MenuItem menu={menu} />);
         expect(getByText('SomeCategory (2)')).toBeDefined();
     });
 })

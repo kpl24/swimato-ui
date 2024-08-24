@@ -1,9 +1,9 @@
 import { Menu } from "../constants/types"
 
-export const Category = ({ menu }: { menu: Menu }) => {
+export const MenuItem = ({ menu }: { menu: Menu }) => {
     return (
         <div className="py-2 text-danger">
-            {`${menu.category.title} (${menu.count})`}
+            {`${menu.title} (${menu.count})`}
         </div>
     )
 }

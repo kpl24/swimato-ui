@@ -2,6 +2,8 @@ interface Restaurant {
     _id: string,
     owner_id: string,
     is_approved: boolean,
+    average_rating?: number,
+    total_ratings?: number,
     logo: string,
     name: string,
     tags: string[],
@@ -9,6 +11,7 @@ interface Restaurant {
     state: string,
     city: string,
     address_line: string,
+    menu?: Menu[],
     location: {
         latitude: string,
         longitude: string
@@ -42,14 +45,10 @@ interface MenuItem {
     title: string,
 }
 
-interface Category {
-    title: string
-}
-
 interface Menu {
     count: number,
     items: [MenuItem],
-    category: Category
+    title: string
 }
 
 export {
