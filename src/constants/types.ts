@@ -18,6 +18,12 @@ interface Restaurant {
     }
 }
 
+interface User {
+    _id: string,
+    name: string,
+    display_picture: string
+}
+
 interface StyleSheet {
     [key: string]: React.CSSProperties;
 }
@@ -37,8 +43,28 @@ interface Menu {
     title: string
 }
 
+interface Rating {
+    _id: string,
+    rating: number,
+    description: string,
+    updatedAt: string,
+    user: User
+}
+
+interface APIResponse {
+    status: {
+        code: number,
+        message: string
+    }
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    data: any
+}
+
 export {
     type Restaurant,
     type StyleSheet,
-    type Menu
+    type Menu,
+    type APIResponse,
+    type User,
+    type Rating
 }

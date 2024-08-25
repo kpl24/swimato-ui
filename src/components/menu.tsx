@@ -1,9 +1,13 @@
-import { Menu } from "../constants/types"
+import { Menu, StyleSheet } from "../constants/types"
 
 export const MenuItem = ({ menu }: { menu: Menu }) => {
     return (
-        <div className="py-2 text-danger">
+        <div style={styles.heading} className="py-2 text-danger">
             {`${menu.title} (${menu.count})`}
         </div>
     )
+}
+
+const styles: StyleSheet = {
+    heading: { cursor: "pointer" }
 }

@@ -1,9 +1,9 @@
 import { render, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import RestaurantDetails from "../../screens/restaurant-details";
 import { useParams } from 'react-router-dom';
-import getRestaurantsResponse from "../data/getRestaurantsResponse";
 import axios from "axios";
+import Reviews from "../../../screens/restaurant-details/reviews";
+import getRestaurantReviews from "../../data/getRestaurantReviews";
 
 vi.mock('react-router-dom', () => ({
     useParams: vi.fn(),
@@ -16,8 +16,8 @@ describe('Restaurant Details', () => {
     it('should render the restaurant details component correctly', () => {
         /* eslint-disable @typescript-eslint/no-explicit-any */
         (useParams as any).mockReturnValue({ restaurantId: '66b9bb39130d8de1720d5822' });
-        mockedAxios.mockResolvedValue({ data: getRestaurantsResponse });
-        const component = render(<RestaurantDetails />);
+        mockedAxios.mockResolvedValue({ data: getRestaurantReviews });
+        const component = render(<Reviews />);
         waitFor(() => expect(component).toBeDefined())
     });
     it('should render the restaurant details component correctly if api rejects', () => {
@@ -30,11 +30,11 @@ describe('Restaurant Details', () => {
                     message: "Error"
                 },
                 data: {
-                    error: "Error getting restaurants"
+                    error: "Error getting reviews"
                 }
             }
         });
-        const component = render(<RestaurantDetails />);
+        const component = render(<Reviews />);
         waitFor(() => expect(component).toBeDefined())
     });
 });

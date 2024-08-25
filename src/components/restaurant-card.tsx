@@ -11,7 +11,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     return (
         <div className="col my-4">
             <div data-testid="show-rest-details" onClick={() => navigate(`/restaurant/${restaurant._id}`)} style={styles.pointer} onMouseLeave={() => setIsHovered(false)} onMouseEnter={() => setIsHovered(true)} className={`border ${isHovered ? 'border-light-subtle shadow-lg' : 'border-white'} rounded-4 p-2`}>
-                <img src={restaurant.logo} className="w-100 rounded-4 align-self-center" />
+                <img src={restaurant.logo} style={{maxHeight: "170px", objectFit: "cover"}} className="w-100 rounded-4 align-self-center" />
                 <div className="py-2 w-100">
                     <div style={styles.headingContainer}>
                         <div style={styles.heading}>{restaurant.name}</div>

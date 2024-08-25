@@ -12,7 +12,7 @@ const getRatingColors = (rating?: number | null) => {
 
 const RatingTag = ({ small, rating }: { small?: boolean, rating?: number | null }) => {
     return (
-        <div className="d-flex align-items-center gap-1 rounded px-2" style={{ ...getRatingColors(rating || null), fontSize: small ? '13px' : '16px' }}>
+        <div className="d-flex align-items-center gap-1 rounded px-2" style={{ ...getRatingColors(rating || null), fontSize: small ? '13px' : '16px', width: "min-content" }}>
             <span style={{marginBottom: '-2px'}}>{rating || "New"}</span>
             {rating ? <FaStar /> : <FaRegStar />}
         </div>
