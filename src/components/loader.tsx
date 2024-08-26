@@ -4,7 +4,7 @@ const Loader = ({ message }: { message?: string }) => {
             <div className="spinner-grow text-secondary-emphasis" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>
-            <div className="text-secondary-emphasis my-2">{message}</div>
+            <div className="text-secondary-emphasis my-2">{message || "Loading"}</div>
         </div>
     );
 }

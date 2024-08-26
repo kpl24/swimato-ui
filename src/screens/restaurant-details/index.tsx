@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../helpers/axios";
 import Loader from "../../components/loader";
 import { Menu, Restaurant, StyleSheet } from "../../constants/types";
@@ -13,8 +13,25 @@ const REVIEWS = "REVIEWS";
 
 const Tabs = ({ restaurant }: { restaurant: Restaurant }) => {
 
-    const [activeTab, setActiveTab] = useState(window.location.href.includes('reviews') ? REVIEWS : ORDER);
+    const getInitialTab = (visitedTab: string) => {
+        switch (visitedTab) {
+            case '':
+                return ORDER;
+            case '/reviews':
+                return REVIEWS;
+            default:
+                return ORDER;
+        }
+    }
+
+
+    const { pathname } = useLocation();
+    const [activeTab, setActiveTab] = useState(getInitialTab(pathname.split(`/restaurant/${restaurant._id}`)[1]));
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setActiveTab(getInitialTab(pathname.split(`/restaurant/${restaurant._id}`)[1]))
+    }, [pathname])
 
     return (
         <div className="mt-5">
@@ -47,6 +64,11 @@ const RestaurantDetails = () => {
     const [loading, setLoading] = useState(false);
     const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+    window.onpopstate = () => {
+        navigate('/')
+    }
 
     useEffect(() => {
         setLoading(true);
