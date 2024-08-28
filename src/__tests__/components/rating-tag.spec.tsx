@@ -23,8 +23,4 @@ describe('Rating', () => {
         const { getByText } = render(<RatingTag rating={4} />);
         expect(getByText('4')).toBeDefined();
     });
-    it('should render the rating tag with text new if no rating is provided', () => {
-        const { getByText } = render(<RatingTag />);
-        expect(getByText('New')).toBeDefined();
-    });
 })

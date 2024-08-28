@@ -1,0 +1,4 @@
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #9c9c9c;
+    opacity: 0.8; /* Firefox */
+}

@@ -96,7 +96,7 @@ const RestaurantDetails = () => {
                     <h1 style={styles.heading}>{restaurant?.name}</h1>
                     <div className="d-flex flex-row align-items-center">
                         <RatingTag rating={restaurant?.average_rating} />
-                        <div className="d-flex flex-column mx-2">
+                        <div className="d-flex flex-column ms-2">
                             <span style={styles.ratingHeading}><strong>{restaurant?.total_ratings}</strong></span>
                             <span style={styles.ratingDescription}>Delivery Ratings</span>
                         </div>

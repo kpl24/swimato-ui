@@ -28,15 +28,15 @@ const Home = () => {
                 setLoadingRestaurants(false);
                 setError(err)
             })
-    }, [])
+    }, []);
 
     return (
         <Fragment>
             {loadingRestaurants && <Loader message="Finding restaurants!" />}
             {error && <LoadError error={error} />}
             {restaurants.length > 0 && <div className="my-4">
-                <h1 className="px-3" style={styles.heading}>{`Order food online in ${CITY}`}</h1>
-                <div className="row row-cols-12 row-cols-lg-4">
+                <h1 className="pe-3" style={styles.heading}>{`Order food online in ${CITY.charAt(0).toUpperCase() + CITY.slice(1)}`}</h1>
+                <div className="row row-cols-12 row-cols-lg-3">
                     {restaurants.map((item: Restaurant) => <RestaurantCard key={item._id} restaurant={item} />)}
                 </div>
             </div>}
