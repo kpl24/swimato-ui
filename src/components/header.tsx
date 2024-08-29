@@ -3,11 +3,17 @@ import { StyleSheet } from "../constants/types";
 import { IoSearch } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { useWindowWidth } from "../helpers/useWindowDimentions";
+import Authenticate, { ShowAuthScreenOptions } from "../screens/authenticate";
+import { useState } from "react";
 
 const Header = () => {
 
     const navigate = useNavigate();
     const { isMobile } = useWindowWidth();
+    const [showAuthScreen, setShowAuthScreen] = useState<ShowAuthScreenOptions>({
+        show: false,
+        type: ''
+    });
 
     const styles: StyleSheet = {
         container: { width: isMobile ? "100%" : "80%", margin: "auto", padding: isMobile ? "10px" : 0 },
@@ -41,10 +47,11 @@ const Header = () => {
                     </div>}
                 </div>
                 <div className="d-flex flex-grow">
-                    <div style={styles.buttons} className="d-flex ms-2 ps-2">Log in</div>
-                    <div style={styles.buttons} className="d-flex ms-2 ps-2">Sign up</div>
+                    <div onClick={() => setShowAuthScreen({ show: true, type: 'login' })} style={styles.buttons} className="d-flex ms-2 ps-2">Log in</div>
+                    <div onClick={() => setShowAuthScreen({ show: true, type: 'signup' })} style={styles.buttons} className="d-flex ms-2 ps-2">Sign up</div>
                 </div>
             </div>
+            <Authenticate showAuthScreenOptions={showAuthScreen} handleModal={(options: ShowAuthScreenOptions) => setShowAuthScreen(options)} />
             <Outlet />
         </div>
     );
