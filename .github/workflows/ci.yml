@@ -15,7 +15,7 @@ jobs:
           npm install
           npm run test
       - name: Run build
-      run: npm run build
+        run: npm run build
       - name: Deploy
         # Only run this step if the branch is main
         if: github.ref == 'refs/heads/main'
