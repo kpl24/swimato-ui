@@ -19,7 +19,7 @@ const Authenticate = ({ showAuthScreenOptions, handleModal }: AuthenticateType) 
             <Modal.Body className="d-flex flex-column">
                 <div style={{ color: "#4f4f4f" }} className="d-flex justify-content-between align-items-center text-capitalize fs-2 mb-2 p-1">
                     {showAuthScreenOptions.type}
-                    <IoMdClose role="button" onClick={() => handleModal({ show: false })} className="text-dark" />
+                    <IoMdClose data-testid="close-icon" role="button" onClick={() => handleModal({ show: false })} className="text-dark" />
                 </div>
                 {showAuthScreenOptions.type === "login" && <Login redirect={() => handleModal({ type: 'signup', show: true })} />}
                 {showAuthScreenOptions.type === "signup" && <SignUp redirect={() => handleModal({ type: 'login', show: true })} />}
