@@ -29,7 +29,7 @@ const Login = ({ redirect }: { redirect: () => void }) => {
             .then((results) => {
                 setLoading(false);
                 if (results?.status?.code === 200) {
-                    console.log(results.data)
+                    //Handle login functionality
                 } else {
                     setError(results?.status?.message)
                 }
