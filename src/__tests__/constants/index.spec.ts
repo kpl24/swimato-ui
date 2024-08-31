@@ -11,6 +11,6 @@ describe('baseUrl', () => {
       it('should return the production URL in production mode', () => {
         const mode = 'production';
         const url = getBaseUrl(mode);
-        expect(url).toBe('https://food-delivery-server-s65z.onrender.com');
+        expect(url).toBe('https://server.klickraft.com/swimato');
       });
 });
