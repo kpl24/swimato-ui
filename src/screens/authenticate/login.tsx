@@ -42,7 +42,7 @@ const Login = ({ redirect }: { redirect: () => void }) => {
 
     const schema = z.object({
         email: z.string().email('Invalid email'),
-        password: z.string().min(5, 'Password should be minimum 5 characters').max(8, 'Password should be max 8 characters'),
+        password: z.string().min(5, 'Password should be minimum 5 characters').max(16, 'Password should be max 16 characters'),
     });
 
     return (
