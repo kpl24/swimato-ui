@@ -1,5 +1,5 @@
 export const getBaseUrl = (environment: string) => {
-    return environment === "development" ? "http://localhost:8000" : "https://food-delivery-server-s65z.onrender.com"
+    return environment === "development" ? "http://localhost:8000" : "https://server.klickraft.com/swimato"
 };
 export const methods = {
     GET: "GET",
