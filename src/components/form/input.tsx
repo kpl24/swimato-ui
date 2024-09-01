@@ -6,7 +6,7 @@ interface CustomInputProps extends FormControlProps {
 
 const Input = (props: CustomInputProps) => {
     return (
-        <Form.Group>
+        <Form.Group className="col">
             <Form.Control
                 {...props}
                 style={{ height: "50px" }}

@@ -7,6 +7,9 @@ import * as z from 'zod';
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { api } from "../../helpers/axios";
+import { APIResponse } from "../../constants/types";
+import { setUser } from "../../redux/reducers/user";
+import { useDispatch } from "react-redux";
 
 interface LoginForm {
     email: string,
@@ -16,6 +19,7 @@ interface LoginForm {
 const Login = ({ redirect }: { redirect: () => void }) => {
 
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
     const [error, setError] = useState('');
     const initialValues = {
         email: "",
@@ -26,10 +30,10 @@ const Login = ({ redirect }: { redirect: () => void }) => {
         setLoading(true);
         setError('')
         api({ method: "post", url: "/user/login", data: values })
-            .then((results) => {
+            .then((results: APIResponse) => {
                 setLoading(false);
                 if (results?.status?.code === 200) {
-                    //Handle login functionality
+                    dispatch(setUser(results.data.user));
                 } else {
                     setError(results?.status?.message)
                 }
