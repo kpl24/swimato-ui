@@ -21,6 +21,7 @@ interface Restaurant {
 interface User {
     _id: string,
     name: string,
+    role?: "user" | "admin"
     display_picture: string
 }
 

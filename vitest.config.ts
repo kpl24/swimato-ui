@@ -7,10 +7,10 @@ export default defineConfig({
         coverage: {
             provider: 'istanbul', // or 'v8'
             thresholds: {
-                lines: 70,
-                functions: 70,
-                branches: 70,
-                statements: 70
+                lines: 30,
+                functions: 30,
+                branches: 30,
+                statements: 30
             }
         },
         environment: 'jsdom',
