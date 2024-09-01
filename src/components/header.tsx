@@ -10,7 +10,7 @@ import { RootState } from "../redux/store";
 import { removeUser } from "../redux/reducers/user";
 import { api } from "../helpers/axios";
 
-const actionContainerStyle = "position-absolute d-flex align-items-start flex-column bg-white ps-2 py-2 shadow-lg rounded";
+const actionContainerStyle = "position-absolute d-flex align-items-end flex-column bg-white pe-3 py-2 shadow-lg rounded";
 
 const UserAction = ({ user }: { user: User }) => {
 
@@ -27,7 +27,7 @@ const UserAction = ({ user }: { user: User }) => {
 
     const styles: StyleSheet = {
         imageContainer: { height: "44px", width: "44px" },
-        actionContainer: { left: 0, top: 52, width: "100%", animation: "fadeIn 5s" }
+        actionContainer: { left: -20, top: 52, width: "200px", animation: "fadeIn 5s" }
     }
 
     return (
@@ -38,7 +38,7 @@ const UserAction = ({ user }: { user: User }) => {
                 {isOpen ? <IoChevronUpOutline size={16} /> : <IoChevronDownOutline size={16} />}
             </div>
             {isOpen && <div className={actionContainerStyle} style={styles.actionContainer}>
-                {user.role === "admin" && <div onClick={() => navigate('/admin/restaurants')} role="button" className="my-2">Admin</div>}
+                <div onClick={() => navigate('/admin/restaurants')} role="button" className="my-2">My Restaurants</div>
                 <div onClick={logout} role="button" className="my-2">Logout</div>
             </div>}
         </div>

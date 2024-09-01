@@ -8,15 +8,23 @@ import RestaurantDetails from "./screens/restaurant-details";
 import Reviews from "./screens/restaurant-details/reviews";
 import Header from "./components/header";
 import { persistor, store } from "./redux/store";
-import ProtectedRoute from "./components/protected-route";
 import Unauthorized from "./screens/authenticate/unauthorized";
 import ManageRestaurants from "./screens/admin/manage-restaurants";
 import AddRestaurant from "./screens/admin/add-restaurant";
+import { Toaster } from "react-hot-toast";
+import { useWindowWidth } from "./helpers/useWindowDimentions";
 
 const App = () => {
+
+  const { isMobile } = useWindowWidth();
+
   return (
     <ReduxProvider store={store}>
       <PersistGate persistor={persistor}>
+        <Toaster
+          position={isMobile ? "top-center" : "top-right"}
+          reverseOrder={false}
+        />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Header />}>
@@ -26,8 +34,8 @@ const App = () => {
               </Route>
               <Route path="*" element={<Navigate to="/" />} />
             </Route>
-            <Route path="/admin/restaurants" element={<ProtectedRoute><ManageRestaurants /></ProtectedRoute>} />
-            <Route path="/admin/restaurants/add" element={<ProtectedRoute><AddRestaurant /></ProtectedRoute>} />
+            <Route path="/admin/restaurants" element={<ManageRestaurants />} />
+            <Route path="/admin/restaurants/add" element={<AddRestaurant />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </BrowserRouter>
