@@ -10,6 +10,7 @@ import { api } from "../../helpers/axios";
 import { APIResponse } from "../../constants/types";
 import { setUser } from "../../redux/reducers/user";
 import { useDispatch } from "react-redux";
+import toast from "../../helpers/toast";
 
 interface LoginForm {
     email: string,
@@ -20,7 +21,6 @@ const Login = ({ redirect }: { redirect: () => void }) => {
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [error, setError] = useState('');
     const initialValues = {
         email: "",
         password: ""
@@ -28,19 +28,18 @@ const Login = ({ redirect }: { redirect: () => void }) => {
 
     const onSubmit = (values: LoginForm) => {
         setLoading(true);
-        setError('')
         api({ method: "post", url: "/user/login", data: values })
             .then((results: APIResponse) => {
                 setLoading(false);
                 if (results?.status?.code === 200) {
                     dispatch(setUser(results.data.user));
                 } else {
-                    setError(results?.status?.message)
+                    toast({ type: "error", title: "Login", message: results?.status?.message })
                 }
             })
             .catch(err => {
                 setLoading(false);
-                setError(err);
+                toast({ type: "error", title: "Login", message: err?.status?.message })
             })
     }
 
@@ -73,7 +72,6 @@ const Login = ({ redirect }: { redirect: () => void }) => {
                         error={errors.password}
                     />
                     {loading ? <Loader message="Loggin in..." /> : <Button onClick={() => handleSubmit()}>Login</Button>}
-                    <div className="text-danger text-center fs-6">{error}</div>
                     <hr className="border-secondary" />
                     <div className="text-start text-secondary d-flex" style={{ fontWeight: "200" }}>
                         Dont have an account ?
