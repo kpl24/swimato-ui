@@ -41,9 +41,9 @@ const AddRestaurant = () => {
                     setError(results.status.message);
                 }
             })
-            .catch(err => {
+            .catch((err: APIResponse) => {
                 setLoading(false);
-                setError(err?.message || "Something went wrong")
+                setError(err?.status?.message)
             })
     }
 

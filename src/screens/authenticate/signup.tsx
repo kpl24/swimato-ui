@@ -8,10 +8,13 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { api } from "../../helpers/axios";
 import { APIResponse, User } from "../../constants/types";
 import toast from "../../helpers/toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
 
 const SignUp = ({ redirect }: { redirect: () => void }) => {
 
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const initialValues = {
         name: "",
@@ -36,13 +39,13 @@ const SignUp = ({ redirect }: { redirect: () => void }) => {
             .then((results: APIResponse) => {
                 setLoading(false);
                 if (results?.status?.code === 200) {
-                    redirect();
+                    dispatch(setUser(results?.data?.user));
                     toast({ type: "success", title: "Register", message: results?.status?.message })
                 } else {
                     toast({ type: "error", title: "Register", message: results?.status?.message })
                 }
             })
-            .catch(err => {
+            .catch((err: APIResponse) => {
                 setLoading(false);
                 toast({ type: "error", title: "Register", message: err?.status?.message })
             })
