@@ -6,7 +6,7 @@ import { ReactNode, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useWindowWidth } from "../helpers/useWindowDimentions";
 
-const AdminHeader = ({ children, right, title }: { children: ReactNode, right: ReactNode, title: string }) => {
+const AdminHeader = ({ children, right, title }: { children: ReactNode, right?: ReactNode, title: string }) => {
 
     const [showSideBar, setShowSideBar] = useState(false);
     const { isMobile } = useWindowWidth();

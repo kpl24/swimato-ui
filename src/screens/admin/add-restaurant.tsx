@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { FieldArray, Formik, getIn } from "formik";
 import AdminHeader from "../../components/admin-header";
 import { APIResponse, Restaurant } from "../../constants/types";
 import * as z from "zod";
@@ -6,9 +6,11 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import Input from "../../components/form/input";
 import Button from "../../components/form/button";
 import { api } from "../../helpers/axios";
+import { IoIosAddCircle, IoIosRemoveCircle } from "react-icons/io";
 import { useState } from "react";
 import Loader from "../../components/loader";
 import { useNavigate } from "react-router-dom";
+import { Form } from "react-bootstrap";
 
 const AddRestaurant = () => {
 
@@ -20,9 +22,9 @@ const AddRestaurant = () => {
         name: "",
         tags: [],
         logo: "https://firebasestorage.googleapis.com/v0/b/swi-mato.appspot.com/o/china-hut.png?alt=media&token=5c685d11-1859-4e9d-af11-cb7bd278907e",
-        country: "India",
-        state: "MH",
-        city: "sangli",
+        country: "",
+        state: "",
+        city: "",
         address_line: "",
         location: {
             latitude: "",
@@ -50,7 +52,7 @@ const AddRestaurant = () => {
     const schema = z.object({
         name: z.string(),
         country: z.string(),
-        tags: z.array(z.string()).max(8, 'Maximum 8 tags are expected'),
+        tags: z.array(z.string()).min(1, 'Minimum 1 dish type is expected').max(8, 'Maximum 8 dishes type are expected'),
         state: z.string(),
         city: z.string(),
         address_line: z.string(),
@@ -61,27 +63,116 @@ const AddRestaurant = () => {
     });
 
     return (
-        <AdminHeader
-            title="Add Restaurant"
-            right={(
-                <div role="button" className="d-flex flex-row align-items-center">
-                    <div className="ps-2 fs-6">Save</div>
-                </div>
-            )}
-        >
+        <AdminHeader title="Add Restaurant">
             <Formik validationSchema={toFormikValidationSchema(schema)} onSubmit={onSubmit} initialValues={initialValue}>
-                {({ handleChange, values, handleSubmit }) => (
+                {({ handleChange, values, handleSubmit, errors, touched }) => (
                     <div>
-                        <Input name="name" onChange={handleChange} value={values.name} placeholder="Name of the Restaurant" />
+                        <Input
+                            isInvalid={touched.name && !!errors.name}
+                            error={errors.name}
+                            label="Restaurant Name"
+                            name="name"
+                            onChange={handleChange}
+                            value={values.name}
+                            placeholder="Name of the Restaurant"
+                        />
+                        <div className="fs-6 text-body-secondary">Add Dishes you serve (e.g Chinese, North Indian, Biryani)</div>
+                        <FieldArray name="tags">
+                            {({ remove, push }) => (
+                                <div className="py-2 d-flex flex-wrap">
+                                    {values?.tags?.length ? values.tags.length &&
+                                        values.tags.map((_, index) => (
+                                            <div className="d-flex bg-body-secondary rounded px-2 me-2 my-2">
+                                                <Form.Control
+                                                    autoComplete="off"
+                                                    className="border-0 bg-transparent shadow-none outline-none"
+                                                    name={`tags.${index}`}
+                                                    style={{ width: '130px' }}
+                                                    placeholder="Add here"
+                                                    onChange={handleChange} />
+                                                <button
+                                                    className="btn btn-sm d-flex align-items-center"
+                                                    onClick={() => {
+                                                        remove(index)
+                                                    }}
+                                                >
+                                                    <IoIosRemoveCircle className="text-danger fs-3" />
+                                                </button>
+                                            </div>
+                                        )) : null}
+                                    <button
+                                        type="button"
+                                        className="btn btn-sm d-flex align-items-center"
+                                        onClick={() => push('')}
+                                    >
+                                        <IoIosAddCircle className="text-danger fs-3" />
+                                    </button>
+                                </div>
+                            )}
+                        </FieldArray>
+                        {touched.tags && errors.tags ? <div className="text-danger" style={{fontSize: "0.875em"}}>{errors.tags}</div> : null}
                         <div className="row row-cols-12 row-cols-lg-3">
-                            <Input name="country" onChange={handleChange} value={values.country} className="col" placeholder="Country" />
-                            <Input name="state" onChange={handleChange} value={values.state} className="col" placeholder="State" />
-                            <Input name="city" onChange={handleChange} value={values.city} className="col" placeholder="City" />
+                            <Input
+                                isInvalid={touched.country && !!errors.country}
+                                error={errors.country}
+                                label="Country"
+                                name="country"
+                                onChange={handleChange}
+                                value={values.country}
+                                className="col"
+                                placeholder="Country"
+                            />
+                            <Input
+                                isInvalid={touched.state && !!errors.state}
+                                error={errors.state}
+                                label="State"
+                                name="state"
+                                onChange={handleChange}
+                                value={values.state}
+                                className="col"
+                                placeholder="State"
+                            />
+                            <Input
+                                isInvalid={touched.city && !!errors.city}
+                                error={errors.city}
+                                label="City"
+                                name="city"
+                                onChange={handleChange}
+                                value={values.city}
+                                className="col"
+                                placeholder="City"
+                            />
                         </div>
-                        <Input name="address_line" onChange={handleChange} value={values.address_line} placeholder="Full address of the restaurant" />
-                        <div className="row row-cols-12 row-cols-lg-3">
-                            <Input name="location.latitude" onChange={handleChange} value={values.location?.latitude} className="col" placeholder="Latitude" />
-                            <Input name="location.longitude" onChange={handleChange} value={values.location?.longitude} className="col" placeholder="Longitude" />
+                        <Input
+                            isInvalid={touched.address_line && !!errors.address_line}
+                            error={errors.address_line}
+                            label="Restaurant Address"
+                            name="address_line"
+                            onChange={handleChange}
+                            value={values.address_line}
+                            placeholder="Full address of the restaurant"
+                        />
+                        <div className="row row-cols-12 row-cols-lg-2">
+                            <Input
+                                isInvalid={getIn(touched, "location.latitude") && !!getIn(errors, "location.latitude")}
+                                error={getIn(errors, "location.latitude")}
+                                label="Latitude"
+                                name="location.latitude"
+                                onChange={handleChange}
+                                value={values.location?.latitude}
+                                className="col"
+                                placeholder="Latitude"
+                            />
+                            <Input
+                                isInvalid={getIn(touched, "location.longitude") && !!getIn(errors, "location.longitude")}
+                                error={getIn(errors, "location.longitude")}
+                                label="Longitude"
+                                name="location.longitude"
+                                onChange={handleChange}
+                                value={values.location?.longitude}
+                                className="col"
+                                placeholder="Longitude"
+                            />
                         </div>
                         {loading ? <Loader message="Creating Restaurant" /> : <Button onClick={() => handleSubmit()}>Create</Button>}
                         {error && <div className="text-danger text-center">{error}</div>}
