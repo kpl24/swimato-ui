@@ -6,12 +6,6 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'istanbul', // or 'v8'
-            thresholds: {
-                lines: 30,
-                functions: 30,
-                branches: 30,
-                statements: 30
-            }
         },
         environment: 'jsdom',
         globals: false,

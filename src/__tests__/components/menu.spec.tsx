@@ -10,6 +10,8 @@ describe('Menu', () => {
         title: 'SomeCategory',
         items: [
             {
+                _id: "",
+                category_id: "",
                 image: "",
                 description: "",
                 is_egg_only: false,

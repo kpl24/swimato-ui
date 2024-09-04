@@ -13,6 +13,7 @@ import ManageRestaurants from "./screens/admin/manage-restaurants";
 import AddRestaurant from "./screens/admin/add-restaurant";
 import { Toaster } from "react-hot-toast";
 import { useWindowWidth } from "./helpers/useWindowDimentions";
+import EditRestaurant from "./screens/admin/edit-restaurant";
 
 const App = () => {
 
@@ -35,6 +36,7 @@ const App = () => {
               <Route path="*" element={<Navigate to="/" />} />
             </Route>
             <Route path="/admin/restaurants" element={<ManageRestaurants />} />
+            <Route path="/admin/restaurant/:restaurantId" element={<EditRestaurant />} />
             <Route path="/admin/restaurants/add" element={<AddRestaurant />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>

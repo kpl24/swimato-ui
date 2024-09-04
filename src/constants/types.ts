@@ -1,3 +1,11 @@
+interface Category {
+    createdAt: string
+    restaurant_id: string
+    title: string
+    updatedAt: string
+    _id: string
+}
+
 interface Restaurant {
     _id: string,
     owner_id: string,
@@ -12,6 +20,8 @@ interface Restaurant {
     city: string,
     address_line: string,
     menu?: Menu[],
+    categories: Category[],
+    menu_items: MenuItem[],
     location: {
         latitude: string,
         longitude: string
@@ -33,6 +43,8 @@ interface StyleSheet {
 }
 
 interface MenuItem {
+    _id: string,
+    category_id: string,
     image: string,
     description: string,
     is_egg_only: boolean,
@@ -68,6 +80,8 @@ export {
     type Restaurant,
     type StyleSheet,
     type Menu,
+    type Category,
+    type MenuItem,
     type APIResponse,
     type User,
     type Rating
