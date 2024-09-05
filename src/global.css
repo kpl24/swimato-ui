@@ -7,3 +7,24 @@
     background-color: #00000087;
     color: #fff;
 }
+
+.horizontal-items::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: white;
+}
+
+/* Track */
+.horizontal-items::-webkit-scrollbar-track {
+    background: white;
+}
+
+/* Handle */
+.horizontal-items::-webkit-scrollbar-thumb {
+    background: #d6d6d6;
+}
+
+/* Handle on hover */
+.horizontal-items::-webkit-scrollbar-thumb:hover {
+    background: #d6d6d6;
+}
