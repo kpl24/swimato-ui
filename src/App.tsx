@@ -35,9 +35,11 @@ const App = () => {
               </Route>
               <Route path="*" element={<Navigate to="/" />} />
             </Route>
-            <Route path="/admin/restaurants" element={<ManageRestaurants />} />
-            <Route path="/admin/restaurant/:restaurantId" element={<EditRestaurant />} />
-            <Route path="/admin/restaurants/add" element={<AddRestaurant />} />
+            <Route path="/admin">
+              <Route path="restaurants" element={<ManageRestaurants />} />
+              <Route path="restaurant/:restaurantId" element={<EditRestaurant />} />
+              <Route path="restaurants/add" element={<AddRestaurant />} />
+            </Route>
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </BrowserRouter>

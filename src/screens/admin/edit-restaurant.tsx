@@ -14,7 +14,7 @@ const CategoriesAndMenu = ({ restaurant }: { restaurant: Restaurant }) => {
 
     const [categories, setCategories] = useState(restaurant.categories);
     const [menuItems, setMenuItems] = useState(restaurant.menu_items);
-    const [selectedCat, setSelectedCat] = useState(categories[0]);
+    const [selectedCat, setSelectedCat] = useState(categories.length > 0 ? categories[0] : null);
     const [showAddCat, setShowAddCat] = useState(false);
     const [showAddMenu, setShowAddMenu] = useState(false);
 
@@ -24,11 +24,19 @@ const CategoriesAndMenu = ({ restaurant }: { restaurant: Restaurant }) => {
                 <h5>Menu Categories</h5>
                 <div role="button" onClick={() => setShowAddCat(true)}>Add Cateogry <IoAddCircle className="text-danger fs-3" /></div>
             </div>
-            <AddCategory onAdd={(newCat) => setCategories([...categories, newCat])} restaurant_id={restaurant._id} categories={categories} show={showAddCat} handleCategoryModal={setShowAddCat} />
-            <AddMenu onAdd={(newItem) => setMenuItems([...menuItems, newItem])} restaurant_id={restaurant._id} category_id={selectedCat._id} menu_items={menuItems} show={showAddMenu} handleMenuModal={setShowAddMenu} />
+            <AddCategory
+                onAdd={(newCat) => {
+                    setCategories([...categories, newCat])
+                    setSelectedCat(newCat)
+                }}
+                restaurant_id={restaurant._id}
+                categories={categories}
+                show={showAddCat} handleCategoryModal={setShowAddCat}
+            />
+            {selectedCat && <AddMenu onAdd={(newItem) => setMenuItems([...menuItems, newItem])} restaurant_id={restaurant._id} category_id={selectedCat._id} menu_items={menuItems} show={showAddMenu} handleMenuModal={setShowAddMenu} />}
             {categories.length > 0 && <Fragment>
                 <hr />
-                <div className="d-flex gap-4 overflow-x-scroll">
+                <div className="d-flex gap-4 overflow-x-scroll horizontal-items">
                     {categories.map((item: Category) => {
                         return (
                             <div
@@ -43,8 +51,8 @@ const CategoriesAndMenu = ({ restaurant }: { restaurant: Restaurant }) => {
                 </div>
                 <hr />
                 <div className="d-flex justify-content-between align-items-center">
-                    <h5>Menu Item</h5>
-                    <div role="button"  onClick={() => setShowAddMenu(true)}>{`Add ${selectedCat?.title}`} <IoAddCircle className="text-danger fs-3" /></div>
+                    <h5>Menu Items</h5>
+                    <div role="button" onClick={() => setShowAddMenu(true)}>{`Add ${selectedCat?.title}`} <IoAddCircle className="text-danger fs-3" /></div>
                 </div>
                 <div className="row row-cols-1 row-cols-lg-3 mt-4">
                     {menuItems.filter((item: MenuItem) => item?.category_id === selectedCat?._id).map((item) => {

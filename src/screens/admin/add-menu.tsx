@@ -10,6 +10,7 @@ import Button from "../../components/form/button";
 import Loader from "../../components/loader";
 import toast from "../../helpers/toast";
 import { api } from "../../helpers/axios";
+import Switch from "../../components/form/switch";
 
 type AddMenuType = {
     menu_items: MenuItem[],
@@ -46,7 +47,7 @@ const AddMenu = ({ menu_items, restaurant_id, category_id, show, handleMenuModal
         }, {
             message: "This menu item already exists.",
         }),
-        description: zod.string(),
+        description: zod.string().optional(),
         price: zod.string(),
         is_veg: zod.boolean(),
         is_egg_only: zod.boolean(),
@@ -86,7 +87,7 @@ const AddMenu = ({ menu_items, restaurant_id, category_id, show, handleMenuModal
                     <IoMdClose data-testid="close-icon" role="button" onClick={() => handleMenuModal(false)} className="text-dark" />
                 </div>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={toFormikValidationSchema(validationSchema)}>
-                    {({ handleChange, values, errors, touched, handleSubmit }) => (
+                    {({ handleChange, values, errors, touched, handleSubmit, setFieldValue }) => (
                         <>
                             <Input
                                 label="Name"
@@ -103,6 +104,24 @@ const AddMenu = ({ menu_items, restaurant_id, category_id, show, handleMenuModal
                                 value={values.description}
                                 isInvalid={touched.description && !!errors.description}
                                 error={errors.description}
+                            />
+                            <Switch
+                                name="is_veg"
+                                onChange={(e) => {
+                                    handleChange(e);
+                                    if (e.target.checked) {
+                                        setFieldValue("is_egg_only", !e.target.checked)
+                                    }
+                                }}
+                                checked={values.is_veg}
+                                label="Is this a veg dish ?"
+                            />
+                            <Switch
+                                name="is_egg_only"
+                                onChange={handleChange}
+                                disabled={values.is_veg}
+                                checked={values.is_egg_only}
+                                label="Does this dish contains only egg ?"
                             />
                             <Input
                                 label="Price"
