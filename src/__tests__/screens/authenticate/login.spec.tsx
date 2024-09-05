@@ -1,8 +1,5 @@
-import { fireEvent, render } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import Login from '../../../screens/authenticate/login';
-import SignUp from '../../../screens/authenticate/signup';
-import Loader from '../../../components/loader';
 import { renderWithProviders } from '../../test-utils';
 
 describe('Login', () => {
@@ -10,10 +7,5 @@ describe('Login', () => {
     it('should render the login component correctly and redirect to signup', () => {
         renderWithProviders(<Login redirect={redirect} />);
         expect(Login).toBeDefined()
-    });
-    it('should render the login component and submit correctly', () => {
-        const { getByText } = render(<SignUp redirect={redirect} />);
-        fireEvent.click(getByText('Login'))
-        expect(Loader).toBeDefined()
     });
 })

@@ -21,6 +21,8 @@ describe('Restaurant Card', () => {
         state: "MH",
         city: "Miraj",
         address_line: "Near Gandhi Chowk, Miraj",
+        categories: [],
+        menu_items: [],
         location: {
             latitude: "1234",
             longitude: "1234"

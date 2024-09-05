@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../helpers/axios";
 import Loader from "../../components/loader";
-import { Menu, Restaurant, StyleSheet } from "../../constants/types";
+import { APIResponse, Menu, Restaurant, StyleSheet } from "../../constants/types";
 import { getTags } from "../../helpers";
 import RatingTag from "../../components/rating-tag";
 import LoadError from "../../components/load-error";
@@ -63,7 +63,7 @@ const RestaurantDetails = () => {
     const { restaurantId } = useParams();
     const [loading, setLoading] = useState(false);
     const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     window.onpopstate = () => {
@@ -80,8 +80,8 @@ const RestaurantDetails = () => {
                         setLoading(false);
                     }
                 })
-                .catch((err) => {
-                    setError(err);
+                .catch((err: APIResponse) => {
+                    setError(err?.status?.message);
                     setLoading(false);
                 })
         }

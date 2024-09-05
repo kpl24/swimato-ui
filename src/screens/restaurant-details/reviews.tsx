@@ -36,7 +36,7 @@ const Reviews = () => {
     const { restaurantId } = useParams();
     const [ratings, setRatings] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         setLoading(true);
@@ -50,9 +50,9 @@ const Reviews = () => {
                     setError(results.status.message)
                 }
             })
-            .catch(err => {
+            .catch((err: APIResponse) => {
                 setLoading(false);
-                setError(err)
+                setError(err?.status?.message)
             })
     }, [])
 

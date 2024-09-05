@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { User } from "../../constants/types";
 
 type UserReducerType = {
-	user: User | null,
+	user: User | null
 }
 
 const initialState: UserReducerType = {

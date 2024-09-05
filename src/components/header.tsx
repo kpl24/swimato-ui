@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { removeUser } from "../redux/reducers/user";
 import { api } from "../helpers/axios";
+import { updateFilter } from "../redux/reducers/app";
 
 const actionContainerStyle = "position-absolute d-flex align-items-end flex-column bg-white pe-3 py-2 shadow-lg rounded";
 
@@ -50,6 +51,8 @@ const Header = () => {
     const navigate = useNavigate();
     const { user } = useSelector((state: RootState) => state.userDetails);
     const { isMobile } = useWindowWidth();
+    const dispatch = useDispatch();
+    const { filter: { location: { city }, name } } = useSelector((state: RootState) => state.appDetails);
     const [showAuthScreen, setShowAuthScreen] = useState<ShowAuthScreenOptions>({
         show: false,
         type: ''
@@ -80,6 +83,9 @@ const Header = () => {
                             placeholder="Location"
                             className="shadow-none ms-2"
                             type="text"
+                            name="city"
+                            value={city}
+                            onChange={(e) => dispatch(updateFilter({ location: { city: e.target.value }, name }))}
                         />
                         <IoSearch color="#9c9c9c" size="40px" />
                         <input
@@ -87,6 +93,9 @@ const Header = () => {
                             placeholder="Search for restaurants"
                             className="shadow-none ms-2"
                             type="text"
+                            name="name"
+                            value={name}
+                            onChange={(e) => dispatch(updateFilter({ location: { city }, name: e.target.value }))}
                         />
                     </div>}
                 </div>

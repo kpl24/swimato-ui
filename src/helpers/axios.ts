@@ -1,5 +1,6 @@
 import axios, { AxiosHeaders, AxiosProgressEvent, AxiosRequestConfig } from "axios";
 import { getBaseUrl } from "../constants";
+import { APIResponse } from "../constants/types";
 
 type onUploadProgress = (arg0: AxiosProgressEvent) => void
 
@@ -19,10 +20,10 @@ export const api = ({ method, url, data, onUploadProgress, isAdmin = false }: { 
     return axios(apiConfig)
         .then(res => { return res.data; })
         .catch((err) => {
-            if (err?.response?.data?.status) {
+            if (err?.response?.data?.status && err?.response?.data?.data) {
                 return err.response.data
             } else {
-                throw ({ status: { code: err?.response?.status || 500, message: 'Something went wrong' }, data: err?.response?.data })
+                throw ({ status: { code: err?.response?.status || 500, message: err?.message || 'Something went wrong' } } as APIResponse)
             }
         });
 };

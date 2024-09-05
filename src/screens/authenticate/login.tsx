@@ -37,7 +37,7 @@ const Login = ({ redirect }: { redirect: () => void }) => {
                     toast({ type: "error", title: "Login", message: results?.status?.message })
                 }
             })
-            .catch(err => {
+            .catch((err: APIResponse) => {
                 setLoading(false);
                 toast({ type: "error", title: "Login", message: err?.status?.message })
             })

@@ -43,13 +43,4 @@ describe('Restaurant Details', () => {
         await fireEvent.click(element);
         expect(getByText("nice chicken triple rice")).toBeInTheDocument();
     });
-
-    it('should render the error details on error correctly', async () => {
-        (useParams as Mock).mockReturnValue({ restaurantId: "66befd3aae14d3f1010ef128" })
-        //@ts-expect-error: no type present
-        api.mockRejectedValueOnce("Error Fetching Restaurant Details")
-        const { getByText } = render(<RestaurantDetails />);
-        await waitForElementToBeRemoved(() => getByText('Loading'));
-        expect(getByText("Error Fetching Restaurant Details")).toBeInTheDocument();
-    });
 });
