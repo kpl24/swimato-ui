@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { api } from "../helpers/axios";
 import { removeUser } from "../redux/reducers/user";
-import { useDispatch } from "react-redux";
-import { ReactNode, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ReactNode, useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useWindowWidth } from "../helpers/useWindowDimentions";
+import { RootState } from "../redux/store";
+import toast from "../helpers/toast";
 
 const AdminHeader = ({ children, right, title }: { children: ReactNode, right?: ReactNode, title: string }) => {
 
@@ -12,6 +14,14 @@ const AdminHeader = ({ children, right, title }: { children: ReactNode, right?: 
     const { isMobile } = useWindowWidth();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { user } = useSelector((state: RootState) => state.userDetails);
+
+    useEffect(() => {
+        if (!user) {
+            toast({ type: "error", title: "Unauthorized", message: "Please login first" })
+            navigate('/');
+        }
+    }, [])
 
     const logout = () => {
         api({ method: "get", url: "/user/logout" })
