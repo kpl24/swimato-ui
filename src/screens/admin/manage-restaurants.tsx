@@ -41,6 +41,7 @@ const ManageRestaurants = () => {
             {loading && <Loader message="Loading restaurants" />}
             <div className="row row-cols-12 row-cols-lg-3">
                 {restaurants.map((item: Restaurant) => <ManageRestaurantCard key={item._id} restaurant={item} />)}
+                {!restaurants.length && !loading && <div className="fs-5">No any restaurants added yet</div>}
             </div>
         </AdminHeader>
 

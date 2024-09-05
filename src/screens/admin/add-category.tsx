@@ -42,7 +42,7 @@ const AddCategory = ({ categories, restaurant_id, show, handleCategoryModal, onA
 
     const onSubmit = (values: { title: string, restaurant_id: string }) => {
         setLoading(true);
-        api({ method: "POST", url: `/menu/category/create`, data: values })
+        api({ method: "POST", url: `/admin/restaurants/menu/category/create`, data: values })
             .then((result: APIResponse) => {
                 setLoading(false);
                 if (result?.status?.code === 200) {

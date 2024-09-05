@@ -11,11 +11,11 @@ import { useState } from "react";
 import Loader from "../../components/loader";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
+import toast from "../../helpers/toast";
 
 const AddRestaurant = () => {
 
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const initialValue: Partial<Restaurant> = {
@@ -39,13 +39,14 @@ const AddRestaurant = () => {
                 setLoading(false);
                 if (results.status.code === 200) {
                     navigate('/admin/restaurants');
-                } else {
-                    setError(results.status.message);
+                } else if (results.status.code === 401) {
+                    toast({ type: "error", title: "Error Creating Restaurant", message: "Unauthorized!" });
+                    navigate('/');
                 }
             })
             .catch((err: APIResponse) => {
                 setLoading(false);
-                setError(err?.status?.message)
+                toast({ type: "error", title: "Server Error", message: err.status.message });
             })
     }
 
@@ -110,7 +111,7 @@ const AddRestaurant = () => {
                                 </div>
                             )}
                         </FieldArray>
-                        {touched.tags && errors.tags ? <div className="text-danger" style={{fontSize: "0.875em"}}>{errors.tags}</div> : null}
+                        {touched.tags && errors.tags ? <div className="text-danger" style={{ fontSize: "0.875em" }}>{errors.tags}</div> : null}
                         <div className="row row-cols-12 row-cols-lg-3">
                             <Input
                                 isInvalid={touched.country && !!errors.country}
@@ -175,7 +176,6 @@ const AddRestaurant = () => {
                             />
                         </div>
                         {loading ? <Loader message="Creating Restaurant" /> : <Button onClick={() => handleSubmit()}>Create</Button>}
-                        {error && <div className="text-danger text-center">{error}</div>}
                     </div>
                 )}
             </Formik>

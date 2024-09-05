@@ -55,7 +55,7 @@ const AddMenu = ({ menu_items, restaurant_id, category_id, show, handleMenuModal
 
     const onSubmit = (values: { title: string, restaurant_id: string }) => {
         setLoading(true);
-        api({ method: "POST", url: `/menu/create`, data: values })
+        api({ method: "POST", url: `/admin/restaurants/menu/create`, data: values })
             .then((result: APIResponse) => {
                 setLoading(false);
                 if (result?.status?.code === 200) {
