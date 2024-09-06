@@ -16,7 +16,7 @@ const ManageRestaurants = () => {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
     useEffect(() => {
-        api({ method: "get", url: "/restaurants", isAdmin: true })
+        api({ method: "get", url: "/admin/restaurants" })
             .then((results: APIResponse) => {
                 setLoading(false);
                 if (results.status.code === 200) {

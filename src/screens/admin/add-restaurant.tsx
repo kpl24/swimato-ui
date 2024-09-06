@@ -34,7 +34,7 @@ const AddRestaurant = () => {
 
     const onSubmit = (values: Partial<Restaurant>) => {
         setLoading(true);
-        api({ method: "post", url: "/restaurants/create", data: values, isAdmin: true })
+        api({ method: "post", url: "/admin/restaurants/create", data: values })
             .then((results: APIResponse) => {
                 setLoading(false);
                 if (results.status.code === 200) {

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 export const useWindowWidth = () => {
 
     const getisMobile = () => {
-        return window ? window.innerWidth < 900 : false
+        return window && window.innerWidth < 900 ? true : false
     }
 
     const [isMobile, setIsMobile] = useState(getisMobile());
