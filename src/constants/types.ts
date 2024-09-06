@@ -51,6 +51,7 @@ interface MenuItem {
     is_veg: boolean,
     price: number,
     title: string,
+    restaurant_id: string,
 }
 
 interface MenuType {
