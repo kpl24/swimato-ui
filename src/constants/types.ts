@@ -19,7 +19,7 @@ interface Restaurant {
     state: string,
     city: string,
     address_line: string,
-    menu?: Menu[],
+    menu?: MenuType[],
     categories: Category[],
     menu_items: MenuItem[],
     location: {
@@ -53,7 +53,8 @@ interface MenuItem {
     title: string,
 }
 
-interface Menu {
+interface MenuType {
+    _id: string,
     count: number,
     items: [MenuItem],
     title: string
@@ -79,7 +80,7 @@ interface APIResponse {
 export {
     type Restaurant,
     type StyleSheet,
-    type Menu,
+    type MenuType,
     type Category,
     type MenuItem,
     type APIResponse,

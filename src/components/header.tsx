@@ -11,7 +11,7 @@ import { removeUser } from "../redux/reducers/user";
 import { api } from "../helpers/axios";
 import { updateFilter } from "../redux/reducers/app";
 
-const actionContainerStyle = "position-absolute d-flex align-items-end flex-column bg-white pe-3 py-2 shadow-lg rounded";
+const actionContainerStyle = "position-absolute d-flex align-items-start flex-column bg-white px-3 py-2 shadow-lg rounded";
 
 const UserAction = ({ user }: { user: User }) => {
 
@@ -73,7 +73,7 @@ const Header = () => {
 
     return (
         <div style={styles.container}>
-            <div className="d-flex flex-row align-items-center justify-content-between py-3">
+            <div className="d-flex flex-row align-items-center justify-content-between py-3 user-select-none">
                 <div className="d-flex align-items-center w-50">
                     <div role="button" style={styles.logo} className="pe-4 fs-2 user-select-none" onClick={() => navigate('/')}><i>swimato</i></div>
                     {!isMobile && <div style={styles.searchBar} className="d-flex w-100 form-control shadow-none align-items-center">
