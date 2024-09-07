@@ -101,7 +101,7 @@ const RestaurantDetails = () => {
                         <RatingTag rating={restaurant?.average_rating} />
                         <div className="d-flex flex-column ms-2">
                             <span className={isMobile ? "text-center" : ""} style={styles.ratingHeading}><strong>{restaurant?.total_ratings}</strong></span>
-                            <span style={styles.ratingDescription}>Delivery Ratings</span>
+                            {restaurant?.total_ratings && <span style={styles.ratingDescription}>Delivery Ratings</span>}
                         </div>
                     </div>}
                 </div>
@@ -111,7 +111,7 @@ const RestaurantDetails = () => {
                     <RatingTag rating={restaurant?.average_rating} />
                     <div className="d-flex flex-column ms-2">
                         <span className={isMobile ? "text-center" : ""} style={styles.ratingHeading}><strong></strong></span>
-                        <span style={styles.ratingDescription}>{`${restaurant?.total_ratings} Delivery Ratings`}</span>
+                        {restaurant?.total_ratings && <span style={styles.ratingDescription}>{`${restaurant?.total_ratings} Delivery Ratings`}</span>}
                     </div>
                 </div>}
                 <Tabs restaurant={restaurant} />
