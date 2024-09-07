@@ -2,16 +2,17 @@ import { Fragment, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../helpers/axios";
 import Loader from "../../components/loader";
-import { APIResponse, Menu, Restaurant, StyleSheet } from "../../constants/types";
+import { APIResponse, RestaurantType, StyleSheetType } from "../../constants/types";
 import { getTags } from "../../helpers";
 import RatingTag from "../../components/rating-tag";
 import LoadError from "../../components/load-error";
-import { MenuItem } from "../../components/menu";
+import Menu from "../../components/menu";
+import { useWindowWidth } from "../../helpers/useWindowDimentions";
 
 const ORDER = "ORDER";
 const REVIEWS = "REVIEWS";
 
-const Tabs = ({ restaurant }: { restaurant: Restaurant }) => {
+const Tabs = ({ restaurant }: { restaurant: RestaurantType }) => {
 
     const getInitialTab = (visitedTab: string) => {
         switch (visitedTab) {
@@ -28,13 +29,14 @@ const Tabs = ({ restaurant }: { restaurant: Restaurant }) => {
     const { pathname } = useLocation();
     const [activeTab, setActiveTab] = useState(getInitialTab(pathname.split(`/restaurant/${restaurant._id}`)[1]));
     const navigate = useNavigate();
+    const {isMobile} = useWindowWidth();
 
     useEffect(() => {
         setActiveTab(getInitialTab(pathname.split(`/restaurant/${restaurant._id}`)[1]))
     }, [pathname])
 
     return (
-        <div className="mt-5">
+        <div className={isMobile ? "mt-2" : "mt-5"}>
             <div className="d-flex flex-row">
                 <div
                     style={activeTab === ORDER ? styles.activeTab : styles.tab}
@@ -51,7 +53,7 @@ const Tabs = ({ restaurant }: { restaurant: Restaurant }) => {
             </div>
             <hr style={{ marginTop: '-2px', borderWidth: '2px', borderColor: "rgba(0,0,0,0.2)" }} />
             <div className="my-3">
-                {activeTab === ORDER && restaurant?.menu?.map((item: Menu, index: number) => <MenuItem key={index} menu={item} />)}
+                {activeTab === ORDER && <Menu menu={restaurant?.menu || []} />}
                 <Outlet />
             </div>
         </div>
@@ -62,9 +64,10 @@ const RestaurantDetails = () => {
 
     const { restaurantId } = useParams();
     const [loading, setLoading] = useState(false);
-    const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+    const [restaurant, setRestaurant] = useState<RestaurantType | null>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const { isMobile } = useWindowWidth();
 
     window.onpopstate = () => {
         navigate('/')
@@ -94,23 +97,30 @@ const RestaurantDetails = () => {
             {restaurant && <div className="mt-4">
                 <div className="d-flex flex-row justify-content-between align-items-start">
                     <h1 style={styles.heading}>{restaurant?.name}</h1>
-                    <div className="d-flex flex-row align-items-center">
+                    {!isMobile && <div className="d-flex flex-row align-items-center">
                         <RatingTag rating={restaurant?.average_rating} />
                         <div className="d-flex flex-column ms-2">
-                            <span style={styles.ratingHeading}><strong>{restaurant?.total_ratings}</strong></span>
+                            <span className={isMobile ? "text-center" : ""} style={styles.ratingHeading}><strong>{restaurant?.total_ratings}</strong></span>
                             <span style={styles.ratingDescription}>Delivery Ratings</span>
                         </div>
-                    </div>
+                    </div>}
                 </div>
                 <div style={styles.tagsContainer}>{getTags(restaurant?.tags)}</div>
                 <div style={styles.address}>{`${restaurant?.address_line}, ${restaurant?.city}.`}</div>
+                {isMobile && <div className="d-flex flex-row align-items-center mt-4">
+                    <RatingTag rating={restaurant?.average_rating} />
+                    <div className="d-flex flex-column ms-2">
+                        <span className={isMobile ? "text-center" : ""} style={styles.ratingHeading}><strong></strong></span>
+                        <span style={styles.ratingDescription}>{`${restaurant?.total_ratings} Delivery Ratings`}</span>
+                    </div>
+                </div>}
                 <Tabs restaurant={restaurant} />
             </div>}
         </Fragment>
     );
 }
 
-const styles: StyleSheet = {
+const styles: StyleSheetType = {
     heading: { fontWeight: '500', color: '#1c1c1c' },
     tagsContainer: { fontSize: '16px', color: '#696969', textTransform: 'capitalize' },
     address: { fontSize: '16px', color: '#9c9c9c', textTransform: 'capitalize', marginTop: '5px' },

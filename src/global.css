@@ -28,3 +28,21 @@
 .horizontal-items::-webkit-scrollbar-thumb:hover {
     background: #d6d6d6;
 }
+
+.accordion-button {
+    background-color: white !important;
+    font-weight: 600;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+    color: rgb(220, 53, 69);
+    font-weight: 600;
+}
+
+.accordion-header {
+    border: none;
+}

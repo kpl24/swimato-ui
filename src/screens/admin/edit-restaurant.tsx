@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import AdminHeader from "../../components/admin-header";
 import { useParams } from "react-router-dom";
-import { APIResponse, Category, MenuItem, Restaurant } from "../../constants/types";
+import { APIResponse, CategoryType, MenuItemType, RestaurantType } from "../../constants/types";
 import { IoAddCircle } from "react-icons/io5";
 import { BiCheckboxSquare } from "react-icons/bi";
 import { api } from "../../helpers/axios";
@@ -10,7 +10,7 @@ import LoadError from "../../components/load-error";
 import AddCategory from "./add-category";
 import AddMenu from "./add-menu";
 
-const CategoriesAndMenu = ({ restaurant }: { restaurant: Restaurant }) => {
+const CategoriesAndMenu = ({ restaurant }: { restaurant: RestaurantType }) => {
 
     const [categories, setCategories] = useState(restaurant.categories);
     const [menuItems, setMenuItems] = useState(restaurant.menu_items);
@@ -37,9 +37,10 @@ const CategoriesAndMenu = ({ restaurant }: { restaurant: Restaurant }) => {
             {categories.length > 0 && <Fragment>
                 <hr />
                 <div className="d-flex gap-4 overflow-x-scroll horizontal-items">
-                    {categories.map((item: Category) => {
+                    {categories.map((item: CategoryType) => {
                         return (
                             <div
+                                key={item._id}
                                 role="button"
                                 onClick={() => setSelectedCat(item)}
                                 className={`text-nowrap pb-2 border-bottom border-4 ${selectedCat?._id === item?._id ? "border-danger" : "border-light"}`}
@@ -55,7 +56,7 @@ const CategoriesAndMenu = ({ restaurant }: { restaurant: Restaurant }) => {
                     <div role="button" onClick={() => setShowAddMenu(true)}>{`Add ${selectedCat?.title}`} <IoAddCircle className="text-danger fs-3" /></div>
                 </div>
                 <div className="row row-cols-1 row-cols-lg-3 mt-4">
-                    {menuItems.filter((item: MenuItem) => item?.category_id === selectedCat?._id).map((item) => {
+                    {menuItems.filter((item: MenuItemType) => item?.category_id === selectedCat?._id).map((item) => {
                         return (
                             <div className="col d-flex border-bottom border-2 py-3">
                                 <div><BiCheckboxSquare size={20} color={item.is_veg ? "green" : "rgb(191, 76, 67)"} /></div>
@@ -76,7 +77,7 @@ const EditRestaurant = () => {
 
     const { restaurantId } = useParams();
     const [loading, setLoading] = useState(false);
-    const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+    const [restaurant, setRestaurant] = useState<RestaurantType | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {

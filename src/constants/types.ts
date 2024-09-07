@@ -1,4 +1,4 @@
-interface Category {
+interface CategoryType {
     createdAt: string
     restaurant_id: string
     title: string
@@ -6,7 +6,7 @@ interface Category {
     _id: string
 }
 
-interface Restaurant {
+interface RestaurantType {
     _id: string,
     owner_id: string,
     is_approved: boolean,
@@ -19,16 +19,16 @@ interface Restaurant {
     state: string,
     city: string,
     address_line: string,
-    menu?: Menu[],
-    categories: Category[],
-    menu_items: MenuItem[],
+    menu?: MenuType[],
+    categories: CategoryType[],
+    menu_items: MenuItemType[],
     location: {
         latitude: string,
         longitude: string
     }
 }
 
-interface User {
+interface UserType {
     _id: string,
     name: string,
     email: string,
@@ -38,11 +38,11 @@ interface User {
     display_picture: string
 }
 
-interface StyleSheet {
+interface StyleSheetType {
     [key: string]: React.CSSProperties;
 }
 
-interface MenuItem {
+interface MenuItemType {
     _id: string,
     category_id: string,
     image: string,
@@ -51,20 +51,22 @@ interface MenuItem {
     is_veg: boolean,
     price: number,
     title: string,
+    restaurant_id: string,
 }
 
-interface Menu {
+interface MenuType {
+    _id: string,
     count: number,
-    items: [MenuItem],
+    items: [MenuItemType],
     title: string
 }
 
-interface Rating {
+interface RatingType {
     _id: string,
     rating: number,
     description: string,
     updatedAt: string,
-    user: User
+    user: UserType
 }
 
 interface APIResponse {
@@ -77,12 +79,12 @@ interface APIResponse {
 }
 
 export {
-    type Restaurant,
-    type StyleSheet,
-    type Menu,
-    type Category,
-    type MenuItem,
+    type RestaurantType,
+    type StyleSheetType,
+    type MenuType,
+    type CategoryType,
+    type MenuItemType,
     type APIResponse,
-    type User,
-    type Rating
+    type UserType,
+    type RatingType
 }

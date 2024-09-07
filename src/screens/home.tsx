@@ -1,7 +1,7 @@
 import { Fragment, useCallback } from "react";
 import { useEffect, useState } from "react";
 import { methods } from "../constants";
-import { APIResponse, Restaurant, StyleSheet } from "../constants/types";
+import { APIResponse, RestaurantType, StyleSheetType } from "../constants/types";
 import RestaurantCard from "../components/restaurant-card";
 import { api } from "../helpers/axios";
 import Loader from "../components/loader";
@@ -53,14 +53,14 @@ const Home = () => {
                     {`${restaurants.length ? 'Search results for' : 'No results found for'} ${name ? `${name}` : 'restaurants'} ${city ? `in ${city}` : `near you`}`}
                 </h1>
                 <div className="row row-cols-12 row-cols-lg-3">
-                    {restaurants.map((item: Restaurant) => <RestaurantCard key={item._id} restaurant={item} />)}
+                    {restaurants.map((item: RestaurantType) => <RestaurantCard key={item._id} restaurant={item} />)}
                 </div>
             </div>
         </Fragment>
     );
 }
 
-const styles: StyleSheet = {
+const styles: StyleSheetType = {
     heading: { fontSize: '22px', fontWeight: '500' },
 }
 

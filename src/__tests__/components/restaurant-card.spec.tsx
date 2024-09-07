@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import RestaurantCard from '../../components/restaurant-card';
-import { Restaurant } from '../../constants/types';
+import { RestaurantType } from '../../constants/types';
 
 const mockUsedNavigate = vi.fn();
 vi.mock('react-router-dom', () => ({
@@ -10,7 +10,7 @@ vi.mock('react-router-dom', () => ({
 }));
 
 describe('Restaurant Card', () => {
-    const restaurant: Restaurant = {
+    const restaurant: RestaurantType = {
         _id: "123456789012345678890987",
         owner_id: "123456789012345678890987",
         is_approved: true,
