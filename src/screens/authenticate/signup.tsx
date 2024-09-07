@@ -6,7 +6,7 @@ import * as z from 'zod';
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { api } from "../../helpers/axios";
-import { APIResponse, User } from "../../constants/types";
+import { APIResponse, UserType } from "../../constants/types";
 import toast from "../../helpers/toast";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
@@ -33,7 +33,7 @@ const SignUp = ({ redirect }: { redirect: () => void }) => {
         path: ["confirm"],
     });
 
-    const onSubmit = (values: Partial<User>) => {
+    const onSubmit = (values: Partial<UserType>) => {
         setLoading(true);
         api({ method: "post", url: "/user/register", data: values })
             .then((results: APIResponse) => {

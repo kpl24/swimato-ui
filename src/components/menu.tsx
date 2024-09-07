@@ -1,17 +1,17 @@
 import { useState } from "react"
-import { MenuItem, MenuType, StyleSheet } from "../constants/types"
+import { MenuItemType, MenuType, StyleSheetType } from "../constants/types"
 import { BiCheckboxSquare } from "react-icons/bi";
 import { useWindowWidth } from "../helpers/useWindowDimentions";
 import { Accordion } from "react-bootstrap";
 import ReadMore from "./read-more";
-import ManageCart from "./manage-cart-button";
+import AddToCart from "./add-to-cart-button";
 
-const RenderMenuItem = ({ item }: { item: MenuItem }) => {
+const RenderMenuItem = ({ item }: { item: MenuItemType }) => {
 
     const { isMobile } = useWindowWidth();
 
     return (
-        <div className={`py-2 my-3 w-${isMobile ? '100' : '75'} d-flex justify-content-between`}>
+        <div className={`mb-4 w-${isMobile ? '100' : '75'} d-flex justify-content-between`}>
             <div className="d-flex flex-row align-items-start justify-content-between w-100">
                 <div className="d-flex col-lg-6 col-9">
                     <div className="position-relative me-2">
@@ -24,7 +24,7 @@ const RenderMenuItem = ({ item }: { item: MenuItem }) => {
                         <ReadMore text={item.description} maxLength={50} />
                     </div>
                 </div>
-                <ManageCart item={item} />
+                <AddToCart item={item} />
             </div>
         </div>
     );
@@ -75,7 +75,7 @@ const Menu = ({ menu }: { menu: MenuType[] }) => {
     return isMobile ? <SmallScreenRender menu={menu} /> : <BigScreenRender menu={menu} />
 }
 
-const styles: StyleSheet = {
+const styles: StyleSheetType = {
     category: { borderRight: "4px solid red", backgroundImage: 'linear-gradient(to right, white , rgba(220, 53, 69, 0.2))' }
 }
 

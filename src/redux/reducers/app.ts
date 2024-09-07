@@ -1,39 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type CartItemType = {
     _id: string,
     quantity: number,
-    restaurant_id?: string
+}
+
+type FilterType = {
+    location: {
+        city: string
+    },
+    name: string
 }
 
 export type AppReducerType = {
-    filter: {
-        location: {
-            city: string
-        },
-        name: string
-    },
+    filter: FilterType,
     cart: CartItemType[],
     restaurant_id: string,
-}
-
-export type updateFilterParams = {
-    payload: {
-        location: {
-            city: string
-        },
-        name: string
-    }
-}
-
-export type updateCartParamType = {
-    payload: CartItemType
 }
 
 const initialState: AppReducerType = {
     filter: {
         location: {
-            city: "sangli"
+            city: ""
         },
         name: ""
     },
@@ -45,17 +33,22 @@ export const userSlice = createSlice({
     name: "appDetails",
     initialState,
     reducers: {
-        updateFilter: (state, action: updateFilterParams) => {
+        updateFilter: (state, action: PayloadAction<FilterType>) => {
             state.filter = action.payload;
         },
-        addCartItem: (state, action: updateCartParamType) => {
+        addCartItem: (state, action: PayloadAction<CartItemType>) => {
             state.cart = [...state.cart, action.payload];
-            state.restaurant_id = action.payload.restaurant_id || ''
         },
-        updateCartItem: (state, action: updateCartParamType) => {
-            state.cart = state.cart.map(item => item._id === action.payload._id ? action.payload : item)
+        setRestaurantId: (state, action: PayloadAction<{ restaurant_id: string }>) => {
+            state.restaurant_id = action.payload.restaurant_id;
         },
-        removeCartItem: (state, action: updateCartParamType) => {
+        removeRestaurantId: (state) => {
+            state.restaurant_id = ''
+        },
+        updateCartItem: (state, action: PayloadAction<CartItemType>) => {
+            state.cart = state.cart.map(item => item._id === action.payload._id ? action.payload : item);
+        },
+        removeCartItem: (state, action: PayloadAction<CartItemType>) => {
             state.cart = state.cart.filter(item => item._id !== action.payload._id);
         },
         resetFilter: (state) => {
@@ -64,6 +57,6 @@ export const userSlice = createSlice({
     },
 });
 
-export const { updateFilter, resetFilter, addCartItem, updateCartItem, removeCartItem } = userSlice.actions;
+export const { updateFilter, resetFilter, addCartItem, updateCartItem, removeCartItem, setRestaurantId, removeRestaurantId } = userSlice.actions;
 
 export default userSlice.reducer;

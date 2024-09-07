@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../helpers/axios";
 import Loader from "../../components/loader";
-import { APIResponse, Restaurant, StyleSheet } from "../../constants/types";
+import { APIResponse, RestaurantType, StyleSheetType } from "../../constants/types";
 import { getTags } from "../../helpers";
 import RatingTag from "../../components/rating-tag";
 import LoadError from "../../components/load-error";
@@ -12,7 +12,7 @@ import { useWindowWidth } from "../../helpers/useWindowDimentions";
 const ORDER = "ORDER";
 const REVIEWS = "REVIEWS";
 
-const Tabs = ({ restaurant }: { restaurant: Restaurant }) => {
+const Tabs = ({ restaurant }: { restaurant: RestaurantType }) => {
 
     const getInitialTab = (visitedTab: string) => {
         switch (visitedTab) {
@@ -64,7 +64,7 @@ const RestaurantDetails = () => {
 
     const { restaurantId } = useParams();
     const [loading, setLoading] = useState(false);
-    const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+    const [restaurant, setRestaurant] = useState<RestaurantType | null>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const { isMobile } = useWindowWidth();
@@ -120,7 +120,7 @@ const RestaurantDetails = () => {
     );
 }
 
-const styles: StyleSheet = {
+const styles: StyleSheetType = {
     heading: { fontWeight: '500', color: '#1c1c1c' },
     tagsContainer: { fontSize: '16px', color: '#696969', textTransform: 'capitalize' },
     address: { fontSize: '16px', color: '#9c9c9c', textTransform: 'capitalize', marginTop: '5px' },

@@ -1,4 +1,4 @@
-import { StyleSheet } from "../constants/types";
+import { StyleSheetType } from "../constants/types";
 import { MdError } from "react-icons/md";
 
 
@@ -9,7 +9,7 @@ const LoadError = ({ error }: { error?: string }) => {
     </div>
 }
 
-const styles: StyleSheet = {
+const styles: StyleSheetType = {
     error: { fontSize: '20px' }
 }
 

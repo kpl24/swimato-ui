@@ -2,7 +2,7 @@ import { MdAddToPhotos } from "react-icons/md";
 import { useWindowWidth } from "../../helpers/useWindowDimentions";
 import AdminHeader from "../../components/admin-header";
 import { useEffect, useState } from "react";
-import { APIResponse, Restaurant } from "../../constants/types";
+import { APIResponse, RestaurantType } from "../../constants/types";
 import { api } from "../../helpers/axios";
 import Loader from "../../components/loader";
 import { ManageRestaurantCard } from "../../components/restaurant-card";
@@ -13,7 +13,7 @@ const ManageRestaurants = () => {
     const { isMobile } = useWindowWidth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+    const [restaurants, setRestaurants] = useState<RestaurantType[]>([]);
 
     useEffect(() => {
         api({ method: "get", url: "/admin/restaurants" })
@@ -40,7 +40,7 @@ const ManageRestaurants = () => {
         >
             {loading && <Loader message="Loading restaurants" />}
             <div className="row row-cols-12 row-cols-lg-3">
-                {restaurants.map((item: Restaurant) => <ManageRestaurantCard key={item._id} restaurant={item} />)}
+                {restaurants.map((item: RestaurantType) => <ManageRestaurantCard key={item._id} restaurant={item} />)}
                 {!restaurants.length && !loading && <div className="fs-5">No any restaurants added yet</div>}
             </div>
         </AdminHeader>

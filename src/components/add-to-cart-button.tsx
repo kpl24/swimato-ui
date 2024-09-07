@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { MenuItem } from "../constants/types";
-import { CartItemType, addCartItem, removeCartItem, updateCartItem } from "../redux/reducers/app";
+import { MenuItemType } from "../constants/types";
+import { CartItemType, addCartItem, removeCartItem, removeRestaurantId, setRestaurantId, updateCartItem } from "../redux/reducers/app";
 import { RootState } from "../redux/store";
 import { GrFormSubtract, GrFormAdd } from "react-icons/gr";
+import { useEffect } from "react";
 
 
-const ManageCart = ({ item }: { item: MenuItem }) => {
+const AddToCart = ({ item }: { item: MenuItemType }) => {
 
     const dispatch = useDispatch();
     const { cart, restaurant_id } = useSelector((state: RootState) => state.appDetails);
@@ -13,11 +14,21 @@ const ManageCart = ({ item }: { item: MenuItem }) => {
     const isInCart: CartItemType[] = cart.filter(cartItem => cartItem._id === item._id);
     const isAddDisabled = restaurant_id && restaurant_id !== item.restaurant_id
 
+    useEffect(() => {
+        if (cart.length === 0 && restaurant_id) {
+            dispatch(removeRestaurantId());
+        }
+    }, [cart])
+
     const handleCartItems = (quantity: number) => {
-        if (quantity === 0) {
-            dispatch(removeCartItem({ _id: item._id, quantity }));
-        } else {
-            dispatch(updateCartItem({ _id: item._id, quantity }));
+        if (quantity === 0) dispatch(removeCartItem({ _id: item._id, quantity }));
+        else dispatch(updateCartItem({ _id: item._id, quantity }));
+    }
+
+    const addToCart = () => {
+        if (!isAddDisabled) {
+            dispatch(addCartItem({ _id: item._id, quantity: 1 }));
+            dispatch(setRestaurantId({ restaurant_id: item.restaurant_id }));
         }
     }
 
@@ -32,14 +43,10 @@ const ManageCart = ({ item }: { item: MenuItem }) => {
             </div>
         </div>
     ) : (
-        <div
-            className="user-select-none"
-            role="button"
-            onClick={() => isAddDisabled ? null : dispatch(addCartItem({ _id: item._id, quantity: 1, restaurant_id: item.restaurant_id }))}
-        >
+        <div className="user-select-none" role="button" onClick={addToCart}>
             <div className={`${isAddDisabled ? 'bg-secondary' : 'bg-danger'} text-light px-2 rounded`}>Add</div>
         </div>
     );
 }
 
-export default ManageCart;
+export default AddToCart;

@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { StyleSheet, User } from "../constants/types";
+import { StyleSheetType, UserType } from "../constants/types";
 import { IoSearch, IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { useWindowWidth } from "../helpers/useWindowDimentions";
@@ -13,7 +13,7 @@ import { updateFilter } from "../redux/reducers/app";
 
 const actionContainerStyle = "position-absolute d-flex align-items-start flex-column bg-white px-3 py-2 shadow-lg rounded";
 
-const UserAction = ({ user }: { user: User }) => {
+const UserAction = ({ user }: { user: UserType }) => {
 
     const [isOpen, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const UserAction = ({ user }: { user: User }) => {
         navigate('/');
     }
 
-    const styles: StyleSheet = {
+    const styles: StyleSheetType = {
         imageContainer: { height: "44px", width: "44px" },
         actionContainer: { left: -20, top: 52, width: "200px", animation: "fadeIn 5s" }
     }
@@ -62,7 +62,7 @@ const Header = () => {
         if (user) setShowAuthScreen({ show: false, type: 'login' });
     }, [user])
 
-    const styles: StyleSheet = {
+    const styles: StyleSheetType = {
         container: { width: isMobile ? "100%" : "80%", margin: "auto", padding: isMobile ? "10px" : 0 },
         logo: { fontWeight: "bold" },
         buttons: { fontWeight: "300", cursor: "pointer", fontSize: "18px" },

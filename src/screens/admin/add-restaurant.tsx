@@ -1,6 +1,6 @@
 import { FieldArray, Formik, getIn } from "formik";
 import AdminHeader from "../../components/admin-header";
-import { APIResponse, Restaurant } from "../../constants/types";
+import { APIResponse, RestaurantType } from "../../constants/types";
 import * as z from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import Input from "../../components/form/input";
@@ -18,7 +18,7 @@ const AddRestaurant = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const initialValue: Partial<Restaurant> = {
+    const initialValue: Partial<RestaurantType> = {
         name: "",
         tags: [],
         logo: "https://firebasestorage.googleapis.com/v0/b/swi-mato.appspot.com/o/china-hut.png?alt=media&token=5c685d11-1859-4e9d-af11-cb7bd278907e",
@@ -32,7 +32,7 @@ const AddRestaurant = () => {
         }
     }
 
-    const onSubmit = (values: Partial<Restaurant>) => {
+    const onSubmit = (values: Partial<RestaurantType>) => {
         setLoading(true);
         api({ method: "post", url: "/admin/restaurants/create", data: values })
             .then((results: APIResponse) => {

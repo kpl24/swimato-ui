@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import { IoMdClose } from "react-icons/io";
-import { APIResponse, MenuItem } from "../../constants/types";
+import { APIResponse, MenuItemType } from "../../constants/types";
 import Input from "../../components/form/input";
 import * as zod from 'zod';
 import { Formik } from "formik";
@@ -13,11 +13,11 @@ import { api } from "../../helpers/axios";
 import Switch from "../../components/form/switch";
 
 type AddMenuType = {
-    menu_items: MenuItem[],
+    menu_items: MenuItemType[],
     restaurant_id: string,
     category_id: string,
     show: boolean,
-    onAdd: (menu: MenuItem) => void
+    onAdd: (menu: MenuItemType) => void
     handleMenuModal: (show: boolean) => void
 }
 

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../helpers/axios";
 import { methods } from "../../constants";
-import { APIResponse, Rating, StyleSheet } from "../../constants/types";
+import { APIResponse, RatingType, StyleSheetType } from "../../constants/types";
 import RatingTag from "../../components/rating-tag";
 import moment from "moment";
 import Loader from "../../components/loader";
 import LoadError from "../../components/load-error";
 
-const ReviewDetails = ({ review }: { review: Rating }) => {
+const ReviewDetails = ({ review }: { review: RatingType }) => {
 
     const { user } = review;
 
@@ -61,12 +61,12 @@ const Reviews = () => {
         <div>
             {loading && <Loader message="Loading restaurant reviews" />}
             {error && <LoadError error={error} />}
-            {ratings.map((item: Rating) => <ReviewDetails key={item._id} review={item} />)}
+            {ratings.map((item: RatingType) => <ReviewDetails key={item._id} review={item} />)}
         </div>
     );
 }
 
-const styles: StyleSheet = {
+const styles: StyleSheetType = {
     avatar: { height: '44px', width: '44px', borderRadius: '50%' },
     date: { color: '9c9c9c', fontSize: '12px', fontWeight: "300" },
     description: { fontWeight: "400", marginTop: "15px" },

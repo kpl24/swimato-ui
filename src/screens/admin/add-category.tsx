@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import { IoMdClose } from "react-icons/io";
-import { APIResponse, Category } from "../../constants/types";
+import { APIResponse, CategoryType } from "../../constants/types";
 import Input from "../../components/form/input";
 import * as zod from 'zod';
 import { Formik } from "formik";
@@ -12,10 +12,10 @@ import toast from "../../helpers/toast";
 import { api } from "../../helpers/axios";
 
 type AddCategory = {
-    categories: Category[],
+    categories: CategoryType[],
     restaurant_id: string,
     show: boolean,
-    onAdd: (category: Category) => void
+    onAdd: (category: CategoryType) => void
     handleCategoryModal: (show: boolean) => void
 }
 

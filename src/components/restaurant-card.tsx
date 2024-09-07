@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Restaurant, StyleSheet } from "../constants/types";
+import { RestaurantType, StyleSheetType } from "../constants/types";
 import { useNavigate } from "react-router-dom";
 import RatingTag from "./rating-tag";
 
-const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
+const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
 
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     );
 }
 
-export const ManageRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
+export const ManageRestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
 
     const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ export const ManageRestaurantCard = ({ restaurant }: { restaurant: Restaurant })
     );
 }
 
-const styles: StyleSheet = {
+const styles: StyleSheetType = {
     pointer: {cursor: 'pointer'},
     headingContainer: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
     heading: { fontSize: '16px', fontWeight: '500', color: '#1c1c1c' },
