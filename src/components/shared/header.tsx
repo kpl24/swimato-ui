@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { StyleSheetType, UserType } from "../../constants/types";
 import { IoSearch, IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
@@ -10,6 +10,7 @@ import { RootState } from "../../redux/store";
 import { removeUser } from "../../redux/reducers/user";
 import { api } from "../../helpers/axios";
 import { updateFilter } from "../../redux/reducers/app";
+import CartOverview from "../cart/cart-overview";
 
 const actionContainerStyle = "position-absolute d-flex align-items-start flex-column bg-white px-3 py-2 shadow-lg rounded";
 
@@ -51,19 +52,21 @@ const Header = () => {
     const navigate = useNavigate();
     const { user } = useSelector((state: RootState) => state.userDetails);
     const { isMobile } = useWindowWidth();
+    const {pathname} = useLocation();
     const dispatch = useDispatch();
     const { filter: { location: { city }, name } } = useSelector((state: RootState) => state.appDetails);
     const [showAuthScreen, setShowAuthScreen] = useState<ShowAuthScreenOptions>({
         show: false,
         type: ''
     });
+    const isOnCartPage = pathname.includes('/cart');
 
     useEffect(() => {
         if (user) setShowAuthScreen({ show: false, type: 'login' });
     }, [user])
 
     const styles: StyleSheetType = {
-        container: { width: isMobile ? "100%" : "80%", margin: "auto", padding: isMobile ? "10px" : 0 },
+        container: { width: isMobile ? "100%" : "80%", margin: "auto", padding: isMobile ? "10px" : 0, position: 'relative' },
         logo: { fontWeight: "bold" },
         buttons: { fontWeight: "300", cursor: "pointer", fontSize: "18px" },
         searchBar: { height: '50px' },
@@ -76,7 +79,7 @@ const Header = () => {
             <div className="d-flex flex-row align-items-center justify-content-between py-3 user-select-none">
                 <div className="d-flex align-items-center w-50">
                     <div role="button" style={styles.logo} className="pe-4 fs-2 user-select-none" onClick={() => navigate('/')}><i>swimato</i></div>
-                    {!isMobile && <div style={styles.searchBar} className="d-flex w-100 form-control shadow-none align-items-center">
+                    {!isMobile && !isOnCartPage && <div style={styles.searchBar} className="d-flex w-100 form-control shadow-none align-items-center">
                         <FaLocationDot color="#ff7e8b" size="25px" />
                         <input
                             style={styles.locationInput}
@@ -99,7 +102,8 @@ const Header = () => {
                         />
                     </div>}
                 </div>
-                <div className="d-flex flex-grow">
+                <div className="d-flex align-items-center">
+                    {user && !isMobile && <CartOverview />}
                     {user && <UserAction user={user} />}
                     {!user && <div onClick={() => setShowAuthScreen({ show: true, type: 'login' })} style={styles.buttons} className="d-flex ms-2 ps-2">Login</div>}
                     {!user && <div onClick={() => setShowAuthScreen({ show: true, type: 'signup' })} style={styles.buttons} className="d-flex ms-2 ps-2">Register</div>}
@@ -107,6 +111,7 @@ const Header = () => {
             </div>
             {!user && <Authenticate showAuthScreenOptions={showAuthScreen} handleModal={(options: ShowAuthScreenOptions) => setShowAuthScreen(options)} />}
             <Outlet />
+            {user && isMobile && <CartOverview />}
         </div>
     );
 }

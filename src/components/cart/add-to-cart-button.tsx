@@ -11,7 +11,7 @@ const AddToCart = ({ item }: { item: MenuItemType }) => {
     const dispatch = useDispatch();
     const { cart, restaurant_id } = useSelector((state: RootState) => state.cartDetails);
 
-    const isInCart: CartItemType[] = cart.filter(cartItem => cartItem._id === item._id);
+    const isInCart: CartItemType[] = cart.filter(cartItem => cartItem.item._id === item._id);
     const isAddDisabled = restaurant_id && restaurant_id !== item.restaurant_id
 
     useEffect(() => {
@@ -21,13 +21,13 @@ const AddToCart = ({ item }: { item: MenuItemType }) => {
     }, [cart])
 
     const handleCartItems = (quantity: number) => {
-        if (quantity === 0) dispatch(removeCartItem({ _id: item._id, quantity }));
-        else dispatch(updateCartItem({ _id: item._id, quantity }));
+        if (quantity === 0) dispatch(removeCartItem({ item, quantity }));
+        else dispatch(updateCartItem({ item, quantity }));
     }
 
     const addToCart = () => {
         if (!isAddDisabled) {
-            dispatch(addCartItem({ _id: item._id, quantity: 1 }));
+            dispatch(addCartItem({ item, quantity: 1 }));
             dispatch(setRestaurantId({ restaurant_id: item.restaurant_id }));
         }
     }

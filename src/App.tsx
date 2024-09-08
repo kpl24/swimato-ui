@@ -14,6 +14,7 @@ import AddRestaurant from "./screens/admin/add-restaurant";
 import { Toaster } from "react-hot-toast";
 import { useWindowWidth } from "./helpers/useWindowDimentions";
 import EditRestaurant from "./screens/admin/edit-restaurant";
+import Cart from "./screens/cart";
 
 const App = () => {
 
@@ -30,6 +31,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Header />}>
               <Route path="" element={<Home />} />
+              <Route path="cart" element={<Cart />} />
               <Route path="restaurant/:restaurantId" element={<RestaurantDetails />} >
                 <Route path="reviews" element={<Reviews />} />
               </Route>
@@ -39,6 +41,7 @@ const App = () => {
               <Route path="restaurants" element={<ManageRestaurants />} />
               <Route path="restaurant/:restaurantId" element={<EditRestaurant />} />
               <Route path="restaurants/add" element={<AddRestaurant />} />
+              <Route path="*" element={<Navigate to="restaurants" />} />
             </Route>
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
