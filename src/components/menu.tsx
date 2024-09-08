@@ -62,6 +62,7 @@ const SmallScreenRender = ({ menu }: { menu: MenuType[] }) => {
                     </Accordion.Item>
                 ))}
             </Accordion>
+            <div style={{ height: '80px' }} />
         </div>
     )
 }

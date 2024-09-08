@@ -78,6 +78,15 @@ interface APIResponse {
     data: any
 }
 
+interface OrderSummaryType {
+    item_total: number
+    taxes: number,
+    delivery_charges: number,
+    packaging_charges: number,
+    platform_fee: number,
+    grand_total: number
+}
+
 export {
     type RestaurantType,
     type StyleSheetType,
@@ -86,5 +95,6 @@ export {
     type MenuItemType,
     type APIResponse,
     type UserType,
-    type RatingType
+    type RatingType,
+    type OrderSummaryType
 }
