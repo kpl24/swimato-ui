@@ -6,7 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import Home from "./screens/home";
 import RestaurantDetails from "./screens/restaurant-details";
 import Reviews from "./screens/restaurant-details/reviews";
-import Header from "./components/header";
+import Header from "./components/shared/header";
 import { persistor, store } from "./redux/store";
 import Unauthorized from "./screens/authenticate/unauthorized";
 import ManageRestaurants from "./screens/admin/manage-restaurants";

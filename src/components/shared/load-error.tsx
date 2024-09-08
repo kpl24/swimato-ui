@@ -1,4 +1,4 @@
-import { StyleSheetType } from "../constants/types";
+import { StyleSheetType } from "../../constants/types";
 import { MdError } from "react-icons/md";
 
 

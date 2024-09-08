@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import RatingTag from '../../components/rating-tag';
+import RatingTag from '../../components/shared/rating-tag';
 
 describe('Rating', () => {
     it('should render the small Rating Tag component correctly', () => {

@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../helpers/axios";
-import Loader from "../../components/loader";
+import Loader from "../../components/shared/loader";
 import { APIResponse, RestaurantType, StyleSheetType } from "../../constants/types";
 import { getTags } from "../../helpers";
-import RatingTag from "../../components/rating-tag";
-import LoadError from "../../components/load-error";
+import RatingTag from "../../components/shared/rating-tag";
+import LoadError from "../../components/shared/load-error";
 import Menu from "../../components/menu";
 import { useWindowWidth } from "../../helpers/useWindowDimentions";
 

@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useState } from "react";
 import Button from "../../components/form/button";
-import Loader from "../../components/loader";
+import Loader from "../../components/shared/loader";
 import toast from "../../helpers/toast";
 import { api } from "../../helpers/axios";
 import Switch from "../../components/form/switch";

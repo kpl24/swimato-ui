@@ -1,10 +1,10 @@
 import { MdAddToPhotos } from "react-icons/md";
 import { useWindowWidth } from "../../helpers/useWindowDimentions";
-import AdminHeader from "../../components/admin-header";
+import AdminHeader from "../../components/shared/admin-header";
 import { useEffect, useState } from "react";
 import { APIResponse, RestaurantType } from "../../constants/types";
 import { api } from "../../helpers/axios";
-import Loader from "../../components/loader";
+import Loader from "../../components/shared/loader";
 import { ManageRestaurantCard } from "../../components/restaurant-card";
 import { useNavigate } from "react-router-dom";
 

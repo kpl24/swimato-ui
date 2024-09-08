@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { api } from "../helpers/axios";
-import { removeUser } from "../redux/reducers/user";
+import { api } from "../../helpers/axios";
+import { removeUser } from "../../redux/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactNode, useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useWindowWidth } from "../helpers/useWindowDimentions";
-import { RootState } from "../redux/store";
-import toast from "../helpers/toast";
+import { useWindowWidth } from "../../helpers/useWindowDimentions";
+import { RootState } from "../../redux/store";
+import toast from "../../helpers/toast";
 
 const AdminHeader = ({ children, right, title }: { children: ReactNode, right?: ReactNode, title: string }) => {
 

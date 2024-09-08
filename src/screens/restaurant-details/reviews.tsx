@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { api } from "../../helpers/axios";
 import { methods } from "../../constants";
 import { APIResponse, RatingType, StyleSheetType } from "../../constants/types";
-import RatingTag from "../../components/rating-tag";
+import RatingTag from "../../components/shared/rating-tag";
 import moment from "moment";
-import Loader from "../../components/loader";
-import LoadError from "../../components/load-error";
+import Loader from "../../components/shared/loader";
+import LoadError from "../../components/shared/load-error";
 
 const ReviewDetails = ({ review }: { review: RatingType }) => {
 

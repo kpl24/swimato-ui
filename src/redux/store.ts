@@ -3,6 +3,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import userReducer from "./reducers/user";
 import appReducer from "./reducers/app";
+import cartReducer from "./reducers/cart";
 
 const createNoopStorage = () => {
     return {
@@ -22,6 +23,7 @@ const createNoopStorage = () => {
 export const reducers = combineReducers({
     userDetails: userReducer,
     appDetails: appReducer,
+    cartDetails: cartReducer,
 });
 
 const persistConfig = {

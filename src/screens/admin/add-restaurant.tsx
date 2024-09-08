@@ -1,5 +1,5 @@
 import { FieldArray, Formik, getIn } from "formik";
-import AdminHeader from "../../components/admin-header";
+import AdminHeader from "../../components/shared/admin-header";
 import { APIResponse, RestaurantType } from "../../constants/types";
 import * as z from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -8,7 +8,7 @@ import Button from "../../components/form/button";
 import { api } from "../../helpers/axios";
 import { IoIosAddCircle, IoIosRemoveCircle } from "react-icons/io";
 import { useState } from "react";
-import Loader from "../../components/loader";
+import Loader from "../../components/shared/loader";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import toast from "../../helpers/toast";

@@ -1,12 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
-import AdminHeader from "../../components/admin-header";
+import AdminHeader from "../../components/shared/admin-header";
 import { useParams } from "react-router-dom";
 import { APIResponse, CategoryType, MenuItemType, RestaurantType } from "../../constants/types";
 import { IoAddCircle } from "react-icons/io5";
 import { BiCheckboxSquare } from "react-icons/bi";
 import { api } from "../../helpers/axios";
-import Loader from "../../components/loader";
-import LoadError from "../../components/load-error";
+import Loader from "../../components/shared/loader";
+import LoadError from "../../components/shared/load-error";
 import AddCategory from "./add-category";
 import AddMenu from "./add-menu";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../components/form/button";
 import Input from "../../components/form/input";
-import Loader from "../../components/loader";
+import Loader from "../../components/shared/loader";
 import * as z from 'zod';
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";

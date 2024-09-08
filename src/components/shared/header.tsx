@@ -1,15 +1,15 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { StyleSheetType, UserType } from "../constants/types";
+import { StyleSheetType, UserType } from "../../constants/types";
 import { IoSearch, IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
-import { useWindowWidth } from "../helpers/useWindowDimentions";
-import Authenticate, { ShowAuthScreenOptions } from "../screens/authenticate";
+import { useWindowWidth } from "../../helpers/useWindowDimentions";
+import Authenticate, { ShowAuthScreenOptions } from "../../screens/authenticate";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { removeUser } from "../redux/reducers/user";
-import { api } from "../helpers/axios";
-import { updateFilter } from "../redux/reducers/app";
+import { RootState } from "../../redux/store";
+import { removeUser } from "../../redux/reducers/user";
+import { api } from "../../helpers/axios";
+import { updateFilter } from "../../redux/reducers/app";
 
 const actionContainerStyle = "position-absolute d-flex align-items-start flex-column bg-white px-3 py-2 shadow-lg rounded";
 

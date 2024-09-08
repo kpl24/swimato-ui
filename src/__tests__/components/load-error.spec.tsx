@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import LoadError from '../../components/load-error';
+import LoadError from '../../components/shared/load-error';
 
 describe('LoadError', () => {
     it('should render the LoadError component correctly', () => {

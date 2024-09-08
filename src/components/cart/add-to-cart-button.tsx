@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { MenuItemType } from "../constants/types";
-import { CartItemType, addCartItem, removeCartItem, removeRestaurantId, setRestaurantId, updateCartItem } from "../redux/reducers/app";
-import { RootState } from "../redux/store";
+import { MenuItemType } from "../../constants/types";
+import { CartItemType, addCartItem, removeCartItem, removeRestaurantId, setRestaurantId, updateCartItem } from "../../redux/reducers/cart";
+import { RootState } from "../../redux/store";
 import { GrFormSubtract, GrFormAdd } from "react-icons/gr";
 import { useEffect } from "react";
 
@@ -9,7 +9,7 @@ import { useEffect } from "react";
 const AddToCart = ({ item }: { item: MenuItemType }) => {
 
     const dispatch = useDispatch();
-    const { cart, restaurant_id } = useSelector((state: RootState) => state.appDetails);
+    const { cart, restaurant_id } = useSelector((state: RootState) => state.cartDetails);
 
     const isInCart: CartItemType[] = cart.filter(cartItem => cartItem._id === item._id);
     const isAddDisabled = restaurant_id && restaurant_id !== item.restaurant_id

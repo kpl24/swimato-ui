@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import Header from '../../components/header';
+import Header from '../../components/shared/header';
 import Home from '../../screens/home';
 import { renderWithProviders } from '../test-utils';
 

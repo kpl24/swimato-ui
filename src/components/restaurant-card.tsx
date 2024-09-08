@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { RestaurantType, StyleSheetType } from "../constants/types";
 import { useNavigate } from "react-router-dom";
-import RatingTag from "./rating-tag";
+import RatingTag from "./shared/rating-tag";
 
 const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
 

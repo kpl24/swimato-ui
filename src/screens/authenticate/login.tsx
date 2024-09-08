@@ -2,7 +2,7 @@ import { IoIosMailOpen } from "react-icons/io";
 import Input from "../../components/form/input";
 import Button from "../../components/form/button";
 import { useState } from "react";
-import Loader from "../../components/loader";
+import Loader from "../../components/shared/loader";
 import * as z from 'zod';
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";

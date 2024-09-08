@@ -3,15 +3,13 @@ import { MenuItemType, MenuType, StyleSheetType } from "../constants/types"
 import { BiCheckboxSquare } from "react-icons/bi";
 import { useWindowWidth } from "../helpers/useWindowDimentions";
 import { Accordion } from "react-bootstrap";
-import ReadMore from "./read-more";
-import AddToCart from "./add-to-cart-button";
+import ReadMore from "./shared/read-more";
+import AddToCart from "./cart/add-to-cart-button";
 
 const RenderMenuItem = ({ item }: { item: MenuItemType }) => {
 
-    const { isMobile } = useWindowWidth();
-
     return (
-        <div className={`mb-4 w-${isMobile ? '100' : '75'} d-flex justify-content-between`}>
+        <div className={`mb-4 w-100 d-flex justify-content-between`}>
             <div className="d-flex flex-row align-items-start justify-content-between w-100">
                 <div className="d-flex col-lg-6 col-9">
                     <div className="position-relative me-2">
