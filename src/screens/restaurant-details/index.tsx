@@ -66,12 +66,7 @@ const RestaurantDetails = () => {
     const [loading, setLoading] = useState(false);
     const [restaurant, setRestaurant] = useState<RestaurantType | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
     const { isMobile } = useWindowWidth();
-
-    window.onpopstate = () => {
-        navigate('/')
-    }
 
     useEffect(() => {
         setLoading(true);

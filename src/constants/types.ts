@@ -87,6 +87,29 @@ interface OrderSummaryType {
     grand_total: number
 }
 
+interface OrderItemType {
+    title: string,
+    price: number,
+    quantity: number,
+    _id: string
+}
+
+interface OrderType {
+    _id: string,
+    restaurant_id: RestaurantType,
+    user_id: string,
+    status: 'placed' | 'confirmed' | 'transit' | 'delivered' | 'cancelled',
+    items: OrderItemType[],
+    item_total: number,
+    taxes: number,
+    delivery_charges: number,
+    packaging_charges: number,
+    platform_fee: number,
+    grand_total: number,
+    createdAt: string,
+    updatedAt: string
+}
+
 export {
     type RestaurantType,
     type StyleSheetType,
@@ -96,5 +119,6 @@ export {
     type APIResponse,
     type UserType,
     type RatingType,
-    type OrderSummaryType
+    type OrderSummaryType,
+    type OrderType
 }
