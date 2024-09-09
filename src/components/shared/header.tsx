@@ -40,6 +40,7 @@ const UserAction = ({ user }: { user: UserType }) => {
                 {isOpen ? <IoChevronUpOutline size={16} /> : <IoChevronDownOutline size={16} />}
             </div>
             {isOpen && <div className={actionContainerStyle} style={styles.actionContainer}>
+                <div onClick={() => {navigate('orders'); setOpen(false)}} role="button" className="my-2">Orders</div>
                 <div onClick={() => navigate('/admin/restaurants')} role="button" className="my-2">My Restaurants</div>
                 <div onClick={logout} role="button" className="my-2">Logout</div>
             </div>}
