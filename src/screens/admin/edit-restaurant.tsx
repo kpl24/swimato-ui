@@ -9,6 +9,7 @@ import Loader from "../../components/shared/loader";
 import LoadError from "../../components/shared/load-error";
 import AddCategory from "./add-category";
 import AddMenu from "./add-menu";
+import { useWindowWidth } from "../../helpers/useWindowDimentions";
 
 const CategoriesAndMenu = ({ restaurant }: { restaurant: RestaurantType }) => {
 
@@ -17,10 +18,11 @@ const CategoriesAndMenu = ({ restaurant }: { restaurant: RestaurantType }) => {
     const [selectedCat, setSelectedCat] = useState(categories.length > 0 ? categories[0] : null);
     const [showAddCat, setShowAddCat] = useState(false);
     const [showAddMenu, setShowAddMenu] = useState(false);
+    const {isMobile} = useWindowWidth();
 
     return (
         <div>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className={`d-flex justify-content-between align-items-center ${isMobile && 'mt-4'}`}>
                 <h5>Menu Categories</h5>
                 <div role="button" onClick={() => setShowAddCat(true)}>Add Cateogry <IoAddCircle className="text-danger fs-3" /></div>
             </div>

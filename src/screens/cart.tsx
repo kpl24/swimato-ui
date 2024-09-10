@@ -76,9 +76,9 @@ const Cart = () => {
             {!!cart.length && <div className="row">
                 <div className="col-lg-6 col-12 p-1">
                     <div className="bg-light rounded p-4">
-                        {cart.map((cartItem) => {
+                        {cart.map((cartItem, index) => {
                             return (
-                                <div className="d-flex flex-row justify-content-between mb-3">
+                                <div key={index} className="d-flex flex-row justify-content-between mb-3">
                                     <div>
                                         <div className="mb-2">{cartItem.item.title}</div>
                                         <div style={{ fontSize: '14px' }}>{`₹ ${cartItem.item.price}`}</div>

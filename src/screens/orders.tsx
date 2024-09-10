@@ -5,6 +5,42 @@ import { api } from "../helpers/axios";
 import toast from "../helpers/toast";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { BiCheckboxSquare } from "react-icons/bi";
+import { TbStar, TbStarFilled } from "react-icons/tb";
+import { IconBaseProps } from "react-icons";
+
+interface IconProps extends IconBaseProps {
+    show: boolean
+}
+
+const ratings = [1, 2, 3, 4, 5];
+
+const IconToggle = (props: IconProps) => props.show ? <TbStarFilled {...props} /> : <TbStar {...props} />
+
+const Rating = () => {
+
+    const [tempRating, setTempRating] = useState(0);
+    const [rating, setRating] = useState<number>(0);
+
+    return (
+        <div>
+            {ratings.map((number) => {
+                return (
+                    <IconToggle
+                        key={number}
+                        onMouseOver={() => setTempRating(number)}
+                        onMouseLeave={() => setTempRating(0)}
+                        onClick={() => setRating(number)}
+                        show={rating > number - 1}
+                        role="button"
+                        color={tempRating > number - 1 ? "#FFC107" : rating > number - 1 ? "#FFC107" : "#6c757d"}
+                        className="rating-star"
+                    />
+                );
+            })}
+        </div>
+    );
+}
 
 const Orders = () => {
 
@@ -25,7 +61,7 @@ const Orders = () => {
     }, [])
 
     return (
-        <div>
+        <div className="mt-3">
             {loading && <Loader message="Loading your orders" />}
             {orders.length === 0 && <div className="fs-6 text-center mt-5">No orders placed yet</div>}
             {orders.map((order) => {
@@ -43,8 +79,9 @@ const Orders = () => {
                         <div className="d-flex flex-column">
                             {order.items.map((item) => {
                                 return (
-                                    <div className="d-flex mb-2">
-                                        <span className="me-1 text-secondary">{`${item.quantity} x`}</span>
+                                    <div key={item._id} className="d-flex mb-2 align-items-start">
+                                        <div><BiCheckboxSquare size={25} color={item.is_veg ? "green" : "rgb(191, 76, 67)"} /></div>
+                                        <div style={{width: '25px'}} className="me-1 text-secondary">{`${item.quantity} x`}</div>
                                         <span style={{ fontWeight: "500" }}>{item.title}</span>
                                     </div>
                                 );
@@ -56,9 +93,12 @@ const Orders = () => {
                                 <div style={{ fontSize: '14px' }} className="text-secondary">{`Order placed on ${moment(order.createdAt).format('DD MMM, hh:mm A')}`}</div>
                                 <div style={{ fontSize: '14px', fontWeight: "600" }} className="text-capitalize text-secondary-emphasis">{order.status}</div>
                             </div>
-                            <div style={{fontWeight: "600"}} className="fs-6">{`₹ ${order.grand_total}`}</div>
+                            <div style={{ fontWeight: "600" }} className="fs-6">{`₹ ${order.grand_total}`}</div>
                         </div>
                         <hr />
+                        <div className="mb-2">
+                            {order.status === "delivered" && <Rating />}
+                        </div>
                     </div>
                 );
             })}

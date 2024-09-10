@@ -2,14 +2,16 @@ import { useState } from "react";
 import { RestaurantType, StyleSheetType } from "../constants/types";
 import { useNavigate } from "react-router-dom";
 import RatingTag from "./shared/rating-tag";
+import { useWindowWidth } from "../helpers/useWindowDimentions";
 
 const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
 
     const [isHovered, setIsHovered] = useState(false);
+    const {isMobile} = useWindowWidth();
     const navigate = useNavigate();
 
     return (
-        <div className="col my-4">
+        <div className={`col ${!isMobile && 'my-4'}`}>
             <div data-testid="show-rest-details" onClick={() => navigate(`/restaurant/${restaurant._id}`)} style={styles.pointer} onMouseLeave={() => setIsHovered(false)} onMouseEnter={() => setIsHovered(true)} className={`border ${isHovered ? 'border-light-subtle shadow-lg' : 'border-white'} rounded-4 p-2`}>
                 <img src={restaurant.logo} style={{maxHeight: "170px", objectFit: "cover"}} className="w-100 rounded-4 align-self-center" />
                 <div className="py-2 w-100">
@@ -33,9 +35,10 @@ const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
 export const ManageRestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
 
     const navigate = useNavigate();
+    const {isMobile} = useWindowWidth();
 
     return (
-        <div className="col my-4">
+        <div className={`col ${!isMobile && 'my-4'}`}>
             <div data-testid="show-rest-details" onClick={() => navigate(`/admin/restaurant/${restaurant._id}`)} style={styles.pointer} className={`border border-white rounded-4 p-2`}>
                 <img src={restaurant.logo} style={{maxHeight: "170px", objectFit: "cover"}} className="w-100 rounded-4 align-self-center" />
                 <div className="py-2 w-100">

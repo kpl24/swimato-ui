@@ -16,6 +16,7 @@ import { useWindowWidth } from "./helpers/useWindowDimentions";
 import EditRestaurant from "./screens/admin/edit-restaurant";
 import Cart from "./screens/cart";
 import Orders from "./screens/orders";
+import Profile from "./screens/profile";
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="" element={<Home />} />
               <Route path="cart" element={<Cart />} />
               <Route path="orders" element={<Orders />} />
+              <Route path="profile" element={<Profile />} />
               <Route path="restaurant/:restaurantId" element={<RestaurantDetails />} >
                 <Route path="reviews" element={<Reviews />} />
               </Route>

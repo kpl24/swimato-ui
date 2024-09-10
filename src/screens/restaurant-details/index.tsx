@@ -102,7 +102,7 @@ const RestaurantDetails = () => {
                 </div>
                 <div style={styles.tagsContainer}>{getTags(restaurant?.tags)}</div>
                 <div style={styles.address}>{`${restaurant?.address_line}, ${restaurant?.city}.`}</div>
-                {isMobile && <div className="d-flex flex-row align-items-center mt-4">
+                {isMobile && <div className="d-flex flex-row align-items-center mt-2">
                     <RatingTag rating={restaurant?.average_rating} />
                     <div className="d-flex flex-column ms-2">
                         <span className={isMobile ? "text-center" : ""} style={styles.ratingHeading}><strong></strong></span>

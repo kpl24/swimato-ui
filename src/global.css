@@ -46,3 +46,15 @@
 .accordion-header {
     border: none;
 }
+
+.rating-star {
+    font-size: 20px;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: #6c757d;
+    transition: all .2s ease-in-out;
+}
+
+.rating-star:hover {
+    transform: scale(1.4);
+}

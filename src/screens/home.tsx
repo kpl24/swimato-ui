@@ -9,11 +9,13 @@ import LoadError from "../components/shared/load-error";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { debounce } from "../helpers";
+import { useWindowWidth } from "../helpers/useWindowDimentions";
 
 const Home = () => {
 
     const [loadingRestaurants, setLoadingRestaurants] = useState(true);
     const [error, setError] = useState<string>('');
+    const { isMobile } = useWindowWidth();
     const [restaurants, setRestaurants] = useState([]);
     const { filter: { location: { city }, name } } = useSelector((state: RootState) => state.appDetails);
 
@@ -48,10 +50,11 @@ const Home = () => {
         <Fragment>
             {loadingRestaurants && <Loader message="Finding restaurants!" />}
             {error && <LoadError error={error} />}
-            <div className="my-4">
-                <h1 className="pe-3" style={styles.heading}>
+            <div className={!isMobile ? "my-4" : ""}>
+                {!isMobile && !loadingRestaurants && <h1 className="pe-3" style={styles.heading}>
                     {`${restaurants.length ? 'Search results for' : 'No results found for'} ${name ? `${name}` : 'restaurants'} ${city ? `in ${city}` : `near you`}`}
-                </h1>
+                </h1>}
+                {restaurants.length === 0 && !loadingRestaurants ? <div className="text-center fs-6 text-secondary">No restaurants</div> : null}
                 <div className="row row-cols-12 row-cols-lg-3">
                     {restaurants.map((item: RestaurantType) => <RestaurantCard key={item._id} restaurant={item} />)}
                 </div>
