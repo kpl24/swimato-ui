@@ -90,6 +90,7 @@ interface OrderSummaryType {
 interface OrderItemType {
     title: string,
     price: number,
+    is_veg: boolean,
     quantity: number,
     _id: string
 }

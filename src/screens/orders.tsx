@@ -5,6 +5,41 @@ import { api } from "../helpers/axios";
 import toast from "../helpers/toast";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { BiCheckboxSquare } from "react-icons/bi";
+import { TbStar, TbStarFilled } from "react-icons/tb";
+import { IconBaseProps } from "react-icons";
+
+interface IconProps extends IconBaseProps {
+    isActive: boolean
+}
+
+const ratings = [1, 2, 3, 4, 5];
+
+const IconToggle = (props: IconProps) => props.isActive ? <TbStarFilled {...props} /> : <TbStar {...props} />
+
+const Rating = () => {
+
+    const [tempRating, setTempRating] = useState(0);
+    const [rating, setRating] = useState<number>(0);
+
+    return (
+        <div>
+            {ratings.map((number) => {
+                return (
+                    <IconToggle
+                        onMouseOver={() => setTempRating(number)}
+                        onMouseLeave={() => setTempRating(0)}
+                        onClick={() => setRating(number)}
+                        isActive={rating > number - 1}
+                        role="button"
+                        color={tempRating > number - 1 ? "#FFC107" : rating > number - 1 ? "#FFC107" : "#6c757d"}
+                        className="rating-star"
+                    />
+                );
+            })}
+        </div>
+    );
+}
 
 const Orders = () => {
 
@@ -43,7 +78,8 @@ const Orders = () => {
                         <div className="d-flex flex-column">
                             {order.items.map((item) => {
                                 return (
-                                    <div className="d-flex mb-2">
+                                    <div className="d-flex mb-2 align-items-center">
+                                        <div><BiCheckboxSquare size={25} color={item.is_veg ? "green" : "rgb(191, 76, 67)"} /></div>
                                         <span className="me-1 text-secondary">{`${item.quantity} x`}</span>
                                         <span style={{ fontWeight: "500" }}>{item.title}</span>
                                     </div>
@@ -56,9 +92,12 @@ const Orders = () => {
                                 <div style={{ fontSize: '14px' }} className="text-secondary">{`Order placed on ${moment(order.createdAt).format('DD MMM, hh:mm A')}`}</div>
                                 <div style={{ fontSize: '14px', fontWeight: "600" }} className="text-capitalize text-secondary-emphasis">{order.status}</div>
                             </div>
-                            <div style={{fontWeight: "600"}} className="fs-6">{`₹ ${order.grand_total}`}</div>
+                            <div style={{ fontWeight: "600" }} className="fs-6">{`₹ ${order.grand_total}`}</div>
                         </div>
                         <hr />
+                        <div className="mb-2">
+                            {order.status === "delivered" && <Rating />}
+                        </div>
                     </div>
                 );
             })}
