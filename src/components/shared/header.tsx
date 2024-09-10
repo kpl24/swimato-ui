@@ -41,6 +41,7 @@ const Header = () => {
         type: ''
     });
     const isOnCartPage = pathname.includes('/cart');
+    const isHomePage = pathname === "/"
 
     useEffect(() => {
         if (user) setShowAuthScreen({ show: false, type: 'login' });
@@ -57,10 +58,10 @@ const Header = () => {
 
     return (
         <div className="row" style={styles.container}>
-            <div style={isMobile ? { boxShadow: "rgba(0, 0, 0, 0.2) 0px 8px 6px -6px" }: {}} className={`d-flex flex-row align-items-center justify-content-between ${!isMobile ? 'py-3' : 'py-2'} user-select-none`}>
+            <div style={isMobile ? { boxShadow: "rgba(0, 0, 0, 0.2) 0px 8px 6px -6px" } : {}} className={`d-flex flex-row align-items-center justify-content-between ${!isMobile ? 'py-3' : 'py-3'} user-select-none`}>
                 <div className="d-flex align-items-center w-50">
                     <div role="button" style={styles.logo} className="pe-4 fs-2 user-select-none" onClick={() => navigate('/')}><i>swimato</i></div>
-                    {!isMobile && !isOnCartPage && <div style={styles.searchBar} className="d-flex w-100 form-control shadow-none align-items-center">
+                    {!isMobile && !isOnCartPage && <div style={styles.searchBar} className="d-flex w-100 form-control shadow-none align-items-center px-2">
                         <FaLocationDot color="#ff7e8b" size="25px" />
                         <input
                             style={styles.locationInput}
@@ -90,6 +91,28 @@ const Header = () => {
                     {!user && <div onClick={() => setShowAuthScreen({ show: true, type: 'signup' })} style={styles.buttons} className="d-flex ms-2 ps-2">Register</div>}
                 </div>
             </div>
+            {isMobile && isHomePage && <div style={styles.searchBar} className="d-flex w-100 align-items-center my-1">
+                <FaLocationDot color="#ff7e8b" size="25px" />
+                <input
+                    style={styles.locationInput}
+                    placeholder="Location"
+                    className="shadow-none ms-2"
+                    type="text"
+                    name="city"
+                    value={city}
+                    onChange={(e) => dispatch(updateFilter({ location: { city: e.target.value }, name }))}
+                />
+                <IoSearch color="#9c9c9c" size="40px" />
+                <input
+                    style={styles.input}
+                    placeholder="Search for restaurants"
+                    className="shadow-none ms-2"
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => dispatch(updateFilter({ location: { city }, name: e.target.value }))}
+                />
+            </div>}
             {!user && <Authenticate showAuthScreenOptions={showAuthScreen} handleModal={(options: ShowAuthScreenOptions) => setShowAuthScreen(options)} />}
             <Outlet />
             {user && isMobile && <CartOverview />}
