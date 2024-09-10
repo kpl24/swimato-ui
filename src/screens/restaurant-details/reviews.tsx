@@ -61,6 +61,7 @@ const Reviews = () => {
         <div>
             {loading && <Loader message="Loading restaurant reviews" />}
             {error && <LoadError error={error} />}
+            {ratings.length === 0 && !loading ? <div className="fs-6 text-center mt-2">This restaurant don't have any ratings yet</div> : null}
             {ratings.map((item: RatingType) => <ReviewDetails key={item._id} review={item} />)}
         </div>
     );

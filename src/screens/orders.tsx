@@ -79,9 +79,9 @@ const Orders = () => {
                         <div className="d-flex flex-column">
                             {order.items.map((item) => {
                                 return (
-                                    <div key={item._id} className="d-flex mb-2 align-items-center">
+                                    <div key={item._id} className="d-flex mb-2 align-items-start">
                                         <div><BiCheckboxSquare size={25} color={item.is_veg ? "green" : "rgb(191, 76, 67)"} /></div>
-                                        <span className="me-1 text-secondary">{`${item.quantity} x`}</span>
+                                        <div style={{width: '25px'}} className="me-1 text-secondary">{`${item.quantity} x`}</div>
                                         <span style={{ fontWeight: "500" }}>{item.title}</span>
                                     </div>
                                 );
