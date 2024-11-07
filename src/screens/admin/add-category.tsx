@@ -10,6 +10,8 @@ import Button from "../../components/form/button";
 import Loader from "../../components/shared/loader";
 import toast from "../../helpers/toast";
 import { api } from "../../helpers/axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 type AddCategory = {
     categories: CategoryType[],
@@ -22,6 +24,7 @@ type AddCategory = {
 const AddCategory = ({ categories, restaurant_id, show, handleCategoryModal, onAdd }: AddCategory) => {
 
     const [loading, setLoading] = useState(false);
+    const { token } = useSelector((s: RootState) => s.userDetails);
 
     const initialValues = {
         restaurant_id,
@@ -42,7 +45,7 @@ const AddCategory = ({ categories, restaurant_id, show, handleCategoryModal, onA
 
     const onSubmit = (values: { title: string, restaurant_id: string }) => {
         setLoading(true);
-        api({ method: "POST", url: `/admin/restaurants/menu/category/create`, data: values })
+        api({ method: "POST", url: `/admin/restaurants/menu/category/create`, data: values, token })
             .then((result: APIResponse) => {
                 setLoading(false);
                 if (result?.status?.code === 200) {

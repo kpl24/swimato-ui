@@ -7,6 +7,8 @@ import RatingTag from "../../components/shared/rating-tag";
 import moment from "moment";
 import Loader from "../../components/shared/loader";
 import LoadError from "../../components/shared/load-error";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const ReviewDetails = ({ review }: { review: RatingType }) => {
 
@@ -35,12 +37,13 @@ const Reviews = () => {
 
     const { restaurantId } = useParams();
     const [ratings, setRatings] = useState([]);
+    const { token } = useSelector((s: RootState) => s.userDetails);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         setLoading(true);
-        api({ method: methods.GET, url: `/restaurant/${restaurantId}/ratings` })
+        api({ method: methods.GET, url: `/restaurant/${restaurantId}/ratings`, token })
             .then((results: APIResponse) => {
                 if (results.status.code === 200) {
                     setLoading(false);

@@ -10,6 +10,8 @@ import LoadError from "../../components/shared/load-error";
 import AddCategory from "./add-category";
 import AddMenu from "./add-menu";
 import { useWindowWidth } from "../../helpers/useWindowDimentions";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 const CategoriesAndMenu = ({ restaurant }: { restaurant: RestaurantType }) => {
 
@@ -80,13 +82,14 @@ const EditRestaurant = () => {
     const { restaurantId } = useParams();
     const [loading, setLoading] = useState(false);
     const [restaurant, setRestaurant] = useState<RestaurantType | null>(null);
+    const { token } = useSelector((s: RootState) => s.userDetails);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         setLoading(true);
         setError('');
         if (restaurantId?.length === 24) {
-            api({ method: "GET", url: `/admin/restaurants/${restaurantId}` })
+            api({ method: "GET", url: `/admin/restaurants/${restaurantId}`, token })
                 .then((result: APIResponse) => {
                     setLoading(false);
                     if (result?.status?.code === 200) {

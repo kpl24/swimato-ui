@@ -8,6 +8,8 @@ import RatingTag from "../../components/shared/rating-tag";
 import LoadError from "../../components/shared/load-error";
 import Menu from "../../components/menu";
 import { useWindowWidth } from "../../helpers/useWindowDimentions";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 const ORDER = "ORDER";
 const REVIEWS = "REVIEWS";
@@ -65,13 +67,14 @@ const RestaurantDetails = () => {
     const { restaurantId } = useParams();
     const [loading, setLoading] = useState(false);
     const [restaurant, setRestaurant] = useState<RestaurantType | null>(null);
+    const { token } = useSelector((s: RootState) => s.userDetails);
     const [error, setError] = useState<string | null>(null);
     const { isMobile } = useWindowWidth();
 
     useEffect(() => {
         setLoading(true);
         if (restaurantId?.length === 24) {
-            api({ method: "GET", url: `/restaurant/v2/${restaurantId}` })
+            api({ method: "GET", url: `/restaurant/v2/${restaurantId}`, token })
                 .then((res) => {
                     if (res?.status?.code === 200) {
                         setRestaurant(res.data.restaurant);

@@ -32,7 +32,7 @@ const Login = ({ redirect }: { redirect: () => void }) => {
             .then((results: APIResponse) => {
                 setLoading(false);
                 if (results?.status?.code === 200) {
-                    dispatch(setUser(results.data.user));
+                    dispatch(setUser({user: results.data.user, token: results.data.token}));
                 } else {
                     toast({ type: "error", title: "Login", message: results?.status?.message })
                 }

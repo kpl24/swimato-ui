@@ -11,6 +11,8 @@ import Loader from "../../components/shared/loader";
 import toast from "../../helpers/toast";
 import { api } from "../../helpers/axios";
 import Switch from "../../components/form/switch";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 type AddMenuType = {
     menu_items: MenuItemType[],
@@ -24,6 +26,7 @@ type AddMenuType = {
 const AddMenu = ({ menu_items, restaurant_id, category_id, show, handleMenuModal, onAdd }: AddMenuType) => {
 
     const [loading, setLoading] = useState(false);
+    const { token } = useSelector((s: RootState) => s.userDetails);
 
     const initialValues = {
         restaurant_id,
@@ -55,7 +58,7 @@ const AddMenu = ({ menu_items, restaurant_id, category_id, show, handleMenuModal
 
     const onSubmit = (values: { title: string, restaurant_id: string }) => {
         setLoading(true);
-        api({ method: "POST", url: `/admin/restaurants/menu/create`, data: values })
+        api({ method: "POST", url: `/admin/restaurants/menu/create`, data: values, token })
             .then((result: APIResponse) => {
                 setLoading(false);
                 if (result?.status?.code === 200) {

@@ -8,6 +8,8 @@ import moment from "moment";
 import { BiCheckboxSquare } from "react-icons/bi";
 import { TbStar, TbStarFilled } from "react-icons/tb";
 import { IconBaseProps } from "react-icons";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 interface IconProps extends IconBaseProps {
     show: boolean
@@ -45,11 +47,12 @@ const Rating = () => {
 const Orders = () => {
 
     const [orders, setOrders] = useState<OrderType[]>([]);
+    const { token } = useSelector((s: RootState) => s.userDetails)
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        api({ method: "get", url: '/order' })
+        api({ method: "get", url: '/order', token })
             .then((results: APIResponse) => {
                 setOrders(results?.data?.orders);
                 setLoading(false);
@@ -81,7 +84,7 @@ const Orders = () => {
                                 return (
                                     <div key={item._id} className="d-flex mb-2 align-items-start">
                                         <div><BiCheckboxSquare size={25} color={item.is_veg ? "green" : "rgb(191, 76, 67)"} /></div>
-                                        <div style={{width: '25px'}} className="me-1 text-secondary">{`${item.quantity} x`}</div>
+                                        <div style={{ width: '25px' }} className="me-1 text-secondary">{`${item.quantity} x`}</div>
                                         <span style={{ fontWeight: "500" }}>{item.title}</span>
                                     </div>
                                 );

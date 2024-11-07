@@ -30,6 +30,7 @@ const SummaryComponent = ({ title, amount, icon }: { title: string, amount: numb
 const Cart = () => {
 
     const { cart, restaurant_id } = useSelector((state: RootState) => state.cartDetails);
+    const { token } = useSelector((state: RootState) => state.userDetails);
     const [loading, setLoading] = useState(false);
     const [placingOrder, setPlacingOrder] = useState(false);
     const [summary, setSummary] = useState<OrderSummaryType | null>(null);
@@ -40,7 +41,7 @@ const Cart = () => {
     useEffect(() => {
         if (cart.length) {
             setLoading(true);
-            api({ method: "POST", url: `/order/summary`, data: { restaurant_id, items } })
+            api({ method: "POST", url: `/order/summary`, data: { restaurant_id, items }, token })
                 .then((results: APIResponse) => {
                     setLoading(false);
                     setSummary(results?.data?.summary)
@@ -56,7 +57,7 @@ const Cart = () => {
 
     const placeOrder = () => {
         setPlacingOrder(true);
-        api({ method: "POST", url: `/order/place`, data: { restaurant_id, items, summary } })
+        api({ method: "POST", url: `/order/place`, data: { restaurant_id, items, summary }, token })
             .then((results: APIResponse) => {
                 setPlacingOrder(false);
                 setSummary(null);

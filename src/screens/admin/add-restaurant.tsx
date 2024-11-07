@@ -12,10 +12,13 @@ import Loader from "../../components/shared/loader";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import toast from "../../helpers/toast";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const AddRestaurant = () => {
 
     const [loading, setLoading] = useState(false);
+    const { token } = useSelector((s: RootState) => s.userDetails);
     const navigate = useNavigate();
 
     const initialValue: Partial<RestaurantType> = {
@@ -34,7 +37,7 @@ const AddRestaurant = () => {
 
     const onSubmit = (values: Partial<RestaurantType>) => {
         setLoading(true);
-        api({ method: "post", url: "/admin/restaurants/create", data: values })
+        api({ method: "post", url: "/admin/restaurants/create", data: values, token })
             .then((results: APIResponse) => {
                 setLoading(false);
                 if (results.status.code === 200) {

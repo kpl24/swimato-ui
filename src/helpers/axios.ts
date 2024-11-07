@@ -4,17 +4,17 @@ import { APIResponse } from "../constants/types";
 
 type onUploadProgress = (arg0: AxiosProgressEvent) => void
 
-export const api = ({ method, url, data, onUploadProgress }: { method: string, url: string, data?: object | undefined, onUploadProgress?: onUploadProgress | undefined }) => {
+export const api = ({ method, url, data, onUploadProgress, token }: { method: string, url: string, data?: object | undefined, onUploadProgress?: onUploadProgress | undefined, token?: string }) => {
     const headers = new AxiosHeaders({
         'Content-Type': 'application/json',
         'Cookie': 'token',
+        'Authorization': token? `Bearer ${token}` : ''
     })
     const apiConfig: AxiosRequestConfig = {
         method: method,
         url: `${getBaseUrl(import.meta.env.MODE)}${url}`,
         data: data,
         headers: headers,
-        withCredentials: true,
         onUploadProgress: onUploadProgress
     };
     return axios(apiConfig)
